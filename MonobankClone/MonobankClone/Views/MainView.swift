@@ -13,11 +13,12 @@ struct MainView: View {
     
     var body: some View {
         ZStack {
-            // Background gradient
+            // Background gradient - точно как в Monobank
             LinearGradient(
                 gradient: Gradient(colors: [
-                    Color(red: 0.25, green: 0.27, blue: 0.65),
-                    Color(red: 0.35, green: 0.25, blue: 0.65)
+                    Color(red: 0.15, green: 0.18, blue: 0.45),  // Темно-синий
+                    Color(red: 0.25, green: 0.30, blue: 0.60),  // Средний синий
+                    Color(red: 0.35, green: 0.40, blue: 0.75)   // Светло-синий
                 ]),
                 startPoint: .top,
                 endPoint: .bottom
@@ -31,7 +32,7 @@ struct MainView: View {
                         // Profile icon
                         ZStack {
                             Circle()
-                                .fill(Color.white.opacity(0.2))
+                                .fill(Color.black.opacity(0.3))
                                 .frame(width: 44, height: 44)
                             
                             Text("БЗ")
@@ -51,16 +52,6 @@ struct MainView: View {
                             alignment: .topTrailing
                         )
                         
-                        // Notification icon
-                        ZStack {
-                            Circle()
-                                .fill(Color.white.opacity(0.2))
-                                .frame(width: 44, height: 44)
-                            
-                            Image(systemName: "message.fill")
-                                .foregroundColor(.white)
-                        }
-                        
                         Spacer()
                         
                         // Cashback
@@ -73,10 +64,12 @@ struct MainView: View {
                         .foregroundColor(.white)
                         .padding(.horizontal, 12)
                         .padding(.vertical, 8)
-                        .background(Color.white.opacity(0.2))
-                        .cornerRadius(20)
+                        .background(
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(Color.black.opacity(0.25))
+                        )
                         
-                        // Cat icon
+                        Spacer()
                         ZStack {
                             Circle()
                                 .fill(Color.white.opacity(0.2))
@@ -164,7 +157,7 @@ struct MainView: View {
                     .padding(.horizontal, 20)
                     .padding(.bottom, 30)
                     
-                    // Transactions section
+                    // Transactions section - с отступами от краев как в оригинале
                     VStack(spacing: 0) {
                         HStack {
                             Text("Операції")
@@ -174,27 +167,31 @@ struct MainView: View {
                             Spacer()
                             
                             Button(action: { showTransactionList = true }) {
-                                Text("Усі")
-                                    .font(.system(size: 16, weight: .medium))
-                                    .foregroundColor(.blue)
-                                Image(systemName: "chevron.right")
-                                    .font(.system(size: 14, weight: .semibold))
-                                    .foregroundColor(.blue)
+                                HStack(spacing: 4) {
+                                    Text("Усі")
+                                        .font(.system(size: 16, weight: .medium))
+                                        .foregroundColor(.blue)
+                                    Image(systemName: "chevron.right")
+                                        .font(.system(size: 12, weight: .semibold))
+                                        .foregroundColor(.blue)
+                                }
                             }
                         }
                         .padding(.horizontal, 20)
                         .padding(.top, 20)
                         .padding(.bottom, 16)
                         
-                        // Transaction list
-                        VStack(spacing: 0) {
+                        // Transaction list - с отступами от краев
+                        VStack(spacing: 1) {
                             ForEach(transactions.prefix(3)) { transaction in
                                 TransactionRow(transaction: transaction)
+                                    .padding(.horizontal, 16)  // Отступы от краев как в оригинале
                             }
                         }
                         
                         Spacer(minLength: 100)
                     }
+                    .padding(.horizontal, 16)  // Отступы для всей секции
                     .background(
                         RoundedRectangle(cornerRadius: 20)
                             .fill(Color.white)
@@ -243,32 +240,49 @@ struct TransactionRow: View {
     let transaction: Transaction
     
     var body: some View {
-        HStack(spacing: 12) {
-            // Icon
+        HStack(spacing: 16) {
+            // Icon - красивая как в оригинале
             ZStack {
                 Circle()
-                    .fill(transaction.iconColor.opacity(0.1))
-                    .frame(width: 44, height: 44)
+                    .fill(transaction.iconColor.opacity(0.15))
+                    .frame(width: 48, height: 48)
                 
                 Image(systemName: transaction.iconName)
-                    .font(.system(size: 18))
+                    .font(.system(size: 20, weight: .medium))
                     .foregroundColor(transaction.iconColor)
             }
             
-            // Title
-            Text(transaction.title)
-                .font(.system(size: 16, weight: .medium))
-                .foregroundColor(.black)
+            // Content
+            VStack(alignment: .leading, spacing: 2) {
+                Text(transaction.title)
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundColor(.black)
+                    .lineLimit(1)
+                
+                Text(transaction.date.formatted(.dateTime.day().month().hour().minute()))
+                    .font(.system(size: 13))
+                    .foregroundColor(.gray)
+            }
             
             Spacer()
             
-            // Amount
-            Text(transaction.formattedAmount)
-                .font(.system(size: 16, weight: .semibold))
-                .foregroundColor(transaction.amount >= 0 ? .green : .black)
+            // Amount - красивое как в оригинале
+            VStack(alignment: .trailing, spacing: 2) {
+                Text(transaction.formattedAmount)
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundColor(transaction.amount >= 0 ? Color(red: 0.2, green: 0.7, blue: 0.3) : .black)
+                
+                Text(transaction.currency)
+                    .font(.system(size: 12))
+                    .foregroundColor(.gray)
+            }
         }
-        .padding(.horizontal, 20)
-        .padding(.vertical, 12)
+        .padding(.horizontal, 4)
+        .padding(.vertical, 16)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.white)
+        )
     }
 }
 

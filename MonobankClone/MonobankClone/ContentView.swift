@@ -7,11 +7,12 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            // Background gradient
+            // Background gradient - точно как в Monobank
             LinearGradient(
                 gradient: Gradient(colors: [
-                    Color(red: 0.25, green: 0.27, blue: 0.65),
-                    Color(red: 0.35, green: 0.25, blue: 0.65)
+                    Color(red: 0.15, green: 0.18, blue: 0.45),  // Темно-синий
+                    Color(red: 0.25, green: 0.30, blue: 0.60),  // Средний синий
+                    Color(red: 0.35, green: 0.40, blue: 0.75)   // Светло-синий
                 ]),
                 startPoint: .top,
                 endPoint: .bottom
@@ -19,24 +20,22 @@ struct ContentView: View {
             .ignoresSafeArea()
             
             VStack(spacing: 0) {
-                // Main content
-                TabView(selection: $selectedTab) {
-                    MainView(cards: $cards, transactions: $transactions)
-                        .tag(TabItem.cards)
-                    
-                    CreditView()
-                        .tag(TabItem.credits)
-                    
-                    SavingsView()
-                        .tag(TabItem.savings)
-                    
-                    ServicesView()
-                        .tag(TabItem.more)
-                    
-                    MarketView()
-                        .tag(TabItem.market)
+                // Main content - БЕЗ свайпа между страницами, только кнопки навигации
+                Group {
+                    switch selectedTab {
+                    case .cards:
+                        MainView(cards: $cards, transactions: $transactions)
+                    case .credits:
+                        CreditView()
+                    case .savings:
+                        SavingsView()
+                    case .more:
+                        ServicesView()
+                    case .market:
+                        MarketView()
+                    }
                 }
-                .tabViewStyle(.page(indexDisplayMode: .never))
+                .animation(.easeInOut(duration: 0.3), value: selectedTab)
                 
                 // Custom bottom tab bar
                 BottomTabBar(selectedTab: $selectedTab)
