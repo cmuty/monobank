@@ -59,12 +59,12 @@
 		A0FFFFFF4 = {
 			isa = PBXGroup;
 			children = (
-				A0FFFFFF5 /* MonobankClone */,
-				A0FFFFFFE /* Products */,
+				A0FFFFFF9 /* MonobankClone */,
+				A0FFFFFE /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		A0FFFFFFE /* Products */ = {
+		A0FFFFFE /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				A0FFFFFFD /* MonobankClone.app */,
@@ -72,14 +72,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A0FFFFFF5 /* MonobankClone */ = {
+		A0FFFFFF9 /* MonobankClone */ = {
 			isa = PBXGroup;
 			children = (
-				A1000000E /* Views */,
 				A10000000 /* MonobankCloneApp.swift */,
 				A10000002 /* ContentView.swift */,
 				A10000015 /* Models.swift */,
 				A10000025 /* Extensions.swift */,
+				A1000000E /* Views */,
 				A10000004 /* Assets.xcassets */,
 				A10000006 /* Preview Content */,
 			);
@@ -99,8 +99,8 @@
 			children = (
 				A1000000F /* MainView.swift */,
 				A10000017 /* CardView.swift */,
-				A10000013 /* CardDetailView.swift */,
 				A10000011 /* TransactionListView.swift */,
+				A10000013 /* CardDetailView.swift */,
 				A10000019 /* BottomTabBar.swift */,
 				A1000001B /* ExchangeRatesView.swift */,
 				A1000001D /* ServicesView.swift */,
@@ -120,7 +120,7 @@
 			buildPhases = (
 				A0FFFFFF9 /* Sources */,
 				A0FFFFFFA /* Frameworks */,
-				A0FFFFFFFB /* Resources */,
+				A0FFFFFFB /* Resources */,
 			);
 			buildRules = (
 			);
@@ -134,7 +134,7 @@
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		A0FFFFFF3 /* Project object */ = {
+		A0FFFFFF5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
@@ -146,7 +146,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A0FFFFFF6 /* Build configuration list for PBXProject "MonobankClone" */;
+			buildConfigurationList = A0FFFFFF8 /* Build configuration list for PBXProject "MonobankClone" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -155,7 +155,7 @@
 				Base,
 			);
 			mainGroup = A0FFFFFF4;
-			productRefGroup = A0FFFFFFE /* Products */;
+			productRefGroup = A0FFFFFE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -165,7 +165,7 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		A0FFFFFFFB /* Resources */ = {
+		A0FFFFFFB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -333,15 +333,15 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.nutipov.monobankclone";
+				PRODUCT_BUNDLE_IDENTIFIER = com.monobank.clone;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -362,15 +362,15 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.nutipov.monobankclone";
+				PRODUCT_BUNDLE_IDENTIFIER = com.monobank.clone;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -381,7 +381,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A0FFFFFF6 /* Build configuration list for PBXProject "MonobankClone" */ = {
+		A0FFFFFF8 /* Build configuration list for PBXProject "MonobankClone" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A10000009 /* Debug */,
@@ -401,5 +401,5 @@
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = A0FFFFFF3 /* Project object */;
+	rootObject = A0FFFFFF5 /* Project object */;
 }
