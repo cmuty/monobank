@@ -1,14 +1,14 @@
 workflows:
   ios-monobank-workflow:
-    name: Monobank iOS Build
+    name: Monobank Clone - iOS Build for Sideloadly
     max_build_duration: 60
     instance_type: mac_mini_m1
     environment:
       vars:
-        XCODE_WORKSPACE: "MonobankClone/MonobankClone.xcodeproj"
+        XCODE_PROJECT: "MonobankClone/MonobankClone.xcodeproj"
         XCODE_SCHEME: "MonobankClone"
-        BUNDLE_ID: "com.nutipov.monobank"
-      xcode: 15.0
+        BUNDLE_ID: "com.nutipov.monobankclone"
+      xcode: latest
       cocoapods: default
     triggering:
       events:
@@ -18,46 +18,98 @@ workflows:
         - pattern: '*'
           include: true
     scripts:
-      - name: Build
+      - name: Set up iOS 15+ deployment target
+        script: |
+          cd MonobankClone
+          # Убеждаемся что deployment target установлен на iOS 15.0
+          /usr/libexec/PlistBuddy -c "Set :objects:A1000000A:buildSettings:IPHONEOS_DEPLOYMENT_TARGET 15.0" MonobankClone.xcodeproj/project.pbxproj || echo "Deployment target already set"
+          
+      - name: Install CocoaPods dependencies
+        script: |
+          cd MonobankClone
+          pod install --repo-update || echo "No Podfile found, skipping pod install"
+          
+      - name: Build unsigned archive for Sideloadly
         script: |
           set -e
           set -x
+          cd MonobankClone
+          
+          # Очищаем предыдущие сборки
+          xcodebuild clean -project "$XCODE_PROJECT" -scheme "$XCODE_SCHEME"
+          
+          # Создаем архив без подписи (для Sideloadly)
           xcodebuild archive \
-            -workspace "$XCODE_WORKSPACE" \
+            -project "$XCODE_PROJECT" \
             -scheme "$XCODE_SCHEME" \
-            -archivePath "$HOME/build/MonobankClone.xcarchive" \
+            -archivePath "$CM_BUILD_DIR/MonobankClone.xcarchive" \
             -destination 'generic/platform=iOS' \
             -configuration Release \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO
+            CODE_SIGNING_ALLOWED=NO \
+            DEVELOPMENT_TEAM="" \
+            PROVISIONING_PROFILE="" \
+            IPHONEOS_DEPLOYMENT_TARGET=15.0 \
+            ENABLE_BITCODE=NO
       
-      - name: Create IPA
+      - name: Create IPA for Sideloadly
         script: |
           set -e
           set -x
-          mkdir -p "$HOME/build/ipa"
-          cd "$HOME/build"
           
-          # Check for assets in the archive
-          echo "Checking for Assets in archive..."
-          find MonobankClone.xcarchive -name "Assets.car" -o -name "AppIcon*"
+          # Создаем папку для IPA
+          mkdir -p "$CM_BUILD_DIR/ipa"
+          cd "$CM_BUILD_DIR"
           
+          # Проверяем что архив создался
+          if [ ! -d "MonobankClone.xcarchive" ]; then
+            echo "❌ Archive not found!"
+            exit 1
+          fi
+          
+          echo "✅ Archive found, creating IPA..."
+          
+          # Создаем Payload папку
           mkdir -p Payload
+          
+          # Копируем .app в Payload
           cp -r MonobankClone.xcarchive/Products/Applications/MonobankClone.app Payload/
           
-          # Verify assets in .app bundle
-          echo "Checking Assets in .app bundle..."
-          ls -la Payload/MonobankClone.app/ || true
-          find Payload/MonobankClone.app -name "Assets.car" -o -name "AppIcon*" || true
+          # Проверяем что .app скопировался
+          if [ ! -d "Payload/MonobankClone.app" ]; then
+            echo "❌ App bundle not found in Payload!"
+            exit 1
+          fi
           
+          echo "✅ App bundle copied to Payload"
+          
+          # Проверяем содержимое .app
+          echo "📱 App bundle contents:"
+          ls -la Payload/MonobankClone.app/
+          
+          # Проверяем Assets
+          echo "🎨 Checking for Assets:"
+          find Payload/MonobankClone.app -name "Assets.car" -o -name "AppIcon*" || echo "No assets found"
+          
+          # Создаем IPA
           zip -r ipa/MonobankClone.ipa Payload
+          
+          # Очищаем временные файлы
           rm -rf Payload
+          
+          # Проверяем размер IPA
+          echo "📦 IPA created:"
           ls -lh ipa/MonobankClone.ipa
+          
+          # Проверяем содержимое IPA
+          echo "📋 IPA contents:"
+          unzip -l ipa/MonobankClone.ipa | head -20
     
     artifacts:
-      - $HOME/build/ipa/*.ipa
-      - $HOME/build/MonobankClone.xcarchive
+      - ipa/*.ipa
+      - MonobankClone.xcarchive
+      - /tmp/xcodebuild_logs/*.log
     
     publishing:
       email:
