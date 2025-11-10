@@ -33,7 +33,6 @@ workflows:
         script: |
           set -e
           set -x
-          cd MonobankClone
           
           # Очищаем предыдущие сборки
           xcodebuild clean -project "$XCODE_PROJECT" -scheme "$XCODE_SCHEME"
