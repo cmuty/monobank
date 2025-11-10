@@ -1,86 +1,68 @@
 workflows:
-  ios-workflow:
-    name: iOS Build IPA for Sideloadly
-    max_build_duration: 120
+  ios-monobank-workflow:
+    name: Monobank iOS Build
+    max_build_duration: 60
     instance_type: mac_mini_m1
     environment:
       vars:
         XCODE_WORKSPACE: "MonobankClone/MonobankClone.xcodeproj"
         XCODE_SCHEME: "MonobankClone"
-        BUNDLE_ID: "com.monobank.clone"
-        EXPORT_OPTIONS_PLIST: "exportOptions.plist"
-      xcode: 15.1
+        BUNDLE_ID: "com.nutipov.monobank"
+      xcode: 15.0
       cocoapods: default
+    triggering:
+      events:
+        - push
+        - pull_request
+      branch_patterns:
+        - pattern: '*'
+          include: true
     scripts:
-      - name: Create export options plist
+      - name: Build
         script: |
-          cat > "$EXPORT_OPTIONS_PLIST" <<EOL
-          <?xml version="1.0" encoding="UTF-8"?>
-          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-          <plist version="1.0">
-          <dict>
-              <key>method</key>
-              <string>development</string>
-              <key>teamID</key>
-              <string>YOUR_TEAM_ID</string>
-              <key>signingStyle</key>
-              <string>automatic</string>
-              <key>stripSwiftOnInstall</key>
-              <false/>
-              <key>uploadBitcode</key>
-              <false/>
-              <key>uploadSymbols</key>
-              <false/>
-          </dict>
-          </plist>
-          EOL
-
-      - name: Install dependencies
-        script: |
-          cd MonobankClone
-          pod install || echo "No Podfile found, skipping pod install"
-
-      - name: Build and export .ipa
-        script: |
-          cd MonobankClone
-          
-          # Clean build folder
-          xcodebuild clean -workspace "$XCODE_WORKSPACE" -scheme "$XCODE_SCHEME"
-          
-          # Archive the app
+          set -e
+          set -x
           xcodebuild archive \
             -workspace "$XCODE_WORKSPACE" \
             -scheme "$XCODE_SCHEME" \
-            -configuration Debug \
-            -archivePath "$CM_BUILD_DIR/build/MonobankClone.xcarchive" \
-            -sdk iphoneos \
+            -archivePath "$HOME/build/MonobankClone.xcarchive" \
+            -destination 'generic/platform=iOS' \
+            -configuration Release \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGN_ENTITLEMENTS="" \
-            CODE_SIGNING_ALLOWED="NO" \
-            ENABLE_BITCODE=NO
+            CODE_SIGNING_ALLOWED=NO
+      
+      - name: Create IPA
+        script: |
+          set -e
+          set -x
+          mkdir -p "$HOME/build/ipa"
+          cd "$HOME/build"
           
-          # Export to .ipa
-          xcodebuild -exportArchive \
-            -archivePath "$CM_BUILD_DIR/build/MonobankClone.xcarchive" \
-            -exportOptionsPlist "$EXPORT_OPTIONS_PLIST" \
-            -exportPath "$CM_BUILD_DIR/build/ipa" \
-            -allowProvisioningUpdates
+          # Check for assets in the archive
+          echo "Checking for Assets in archive..."
+          find MonobankClone.xcarchive -name "Assets.car" -o -name "AppIcon*"
           
-          # Rename output to include version
-          cd "$CM_BUILD_DIR/build/ipa"
-          mv "$XCODE_SCHEME.ipa" "MonobankClone.ipa"
+          mkdir -p Payload
+          cp -r MonobankClone.xcarchive/Products/Applications/MonobankClone.app Payload/
           
-          echo "IPA file created at: $(pwd)/MonobankClone.ipa"
+          # Verify assets in .app bundle
+          echo "Checking Assets in .app bundle..."
+          ls -la Payload/MonobankClone.app/ || true
+          find Payload/MonobankClone.app -name "Assets.car" -o -name "AppIcon*" || true
+          
+          zip -r ipa/MonobankClone.ipa Payload
+          rm -rf Payload
+          ls -lh ipa/MonobankClone.ipa
     
     artifacts:
-      - build/ipa/*.ipa
-      - /tmp/xcodebuild_logs/*.log
+      - $HOME/build/ipa/*.ipa
+      - $HOME/build/MonobankClone.xcarchive
     
     publishing:
       email:
         recipients:
-          - your.email@example.com
+          - nutipovottakvot@gmail.com
         notify:
           success: true
           failure: true
