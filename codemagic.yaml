@@ -9,7 +9,7 @@ workflows:
         XCODE_SCHEME: "MonobankClone"
         BUNDLE_ID: "com.monobank.clone"
         EXPORT_OPTIONS_PLIST: "exportOptions.plist"
-      xcode: 15.2
+      xcode: 15.1
       cocoapods: default
     scripts:
       - name: Create export options plist
