@@ -14,16 +14,15 @@ struct BottomTabBar: View {
             }
         }
         .padding(.horizontal, 12)
-        .padding(.top, 8)
-        .padding(.bottom, 20)
+        .padding(.vertical, 12)
         .background(
-            // Белый фон без перекрытия контента
-            RoundedRectangle(cornerRadius: 25)
-                .fill(Color.white)
-                .shadow(color: .black.opacity(0.1), radius: 12, x: 0, y: -4)
+            // Карточка с цветом как у Monobank карты
+            RoundedRectangle(cornerRadius: 16)
+                .fill(Color(red: 0.2, green: 0.25, blue: 0.4))
+                .shadow(color: .black.opacity(0.1), radius: 6, x: 0, y: -2)
         )
-        .padding(.horizontal, 20)  // Отступы от краев экрана
-        .padding(.bottom, 12)
+        .padding(.horizontal, 20)
+        .padding(.bottom, 16)
     }
 }
 
@@ -36,21 +35,15 @@ struct TabBarButton: View {
         Button(action: action) {
             VStack(spacing: 6) {
                 Image(systemName: tab.icon)
-                    .font(.system(size: 24, weight: isSelected ? .semibold : .regular))
-                    .foregroundColor(isSelected ? Color(red: 1.0, green: 0.2, blue: 0.2) : Color.gray.opacity(0.6))
+                    .font(.system(size: 20, weight: isSelected ? .semibold : .regular))
+                    .foregroundColor(isSelected ? Color(red: 1.0, green: 0.2, blue: 0.2) : Color.white.opacity(0.7))
                 
                 Text(tab.rawValue)
-                    .font(.system(size: 11, weight: isSelected ? .semibold : .medium))
-                    .foregroundColor(isSelected ? Color(red: 1.0, green: 0.2, blue: 0.2) : Color.gray.opacity(0.7))
+                    .font(.system(size: 10, weight: isSelected ? .semibold : .medium))
+                    .foregroundColor(isSelected ? Color(red: 1.0, green: 0.2, blue: 0.2) : Color.white.opacity(0.8))
             }
             .frame(maxWidth: .infinity)
-            .padding(.vertical, 10)
-            .background(
-                // Подсветка активной вкладки
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(isSelected ? Color(red: 1.0, green: 0.2, blue: 0.2).opacity(0.1) : Color.clear)
-                    .animation(.easeInOut(duration: 0.2), value: isSelected)
-            )
+            .padding(.vertical, 8)
         }
     }
 }
