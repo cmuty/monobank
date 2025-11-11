@@ -184,7 +184,6 @@ struct MainView: View {
                             .fill(Color.white)
                     )
                 }
-                .scrollBounceBehavior(.basedOnSize)  // Ограничиваем bounce эффект
                 .clipped()  // Ограничиваем скролл
             }
             .clipped()  // Дополнительное ограничение

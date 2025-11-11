@@ -101,9 +101,7 @@ struct ServicesView: View {
                     .padding(.bottom, 100)
                 }
             }
-        }
     }
-}
 
 struct ServiceCard: View {
     let service: ServiceItem
