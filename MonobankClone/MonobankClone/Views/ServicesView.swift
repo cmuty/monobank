@@ -98,7 +98,7 @@ struct ServicesView: View {
                         }
                     }
                     .padding(.horizontal, 20)
-                    .padding(.bottom, 100)
+                    .padding(.bottom, 120)  // Отступ для фиксированного footer
                 }
             }
     }

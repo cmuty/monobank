@@ -26,6 +26,9 @@ struct MarketView: View {
                 }
                 
                 Spacer()
+                
+                // Отступ для фиксированного footer
+                Spacer().frame(height: 120)
         }
     }
 }

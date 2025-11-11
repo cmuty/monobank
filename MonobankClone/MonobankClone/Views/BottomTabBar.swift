@@ -16,9 +16,9 @@ struct BottomTabBar: View {
         .padding(.horizontal, 12)
         .padding(.vertical, 12)
         .background(
-            // Карточка с цветом как у Monobank карты
+            // Карточка с темно-черным цветом как у Monobank карты
             RoundedRectangle(cornerRadius: 16)
-                .fill(Color(red: 0.2, green: 0.25, blue: 0.4))
+                .fill(Color(red: 0.15, green: 0.15, blue: 0.2))
                 .shadow(color: .black.opacity(0.1), radius: 6, x: 0, y: -2)
         )
         .padding(.horizontal, 20)

@@ -165,13 +165,13 @@ struct MainView: View {
                         }
                         .padding(.horizontal, 20)
                         
-                        Spacer(minLength: 100)
+                        Spacer(minLength: 120)  // Больше места для фиксированного footer
                     }
-                    .padding(.horizontal, 20)  // Отступы от краев экрана
                     .background(
                         RoundedRectangle(cornerRadius: 20)
-                            .fill(Color(red: 0.2, green: 0.25, blue: 0.4))  // Цвет как у карты
+                            .fill(Color(red: 0.15, green: 0.15, blue: 0.2))  // Темно-черный как карта Monobank
                     )
+                    .padding(.horizontal, 16)  // Отступы от краев экрана
                 }
         }
         .ignoresSafeArea(edges: .bottom)

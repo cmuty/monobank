@@ -18,7 +18,7 @@ struct ContentView: View {
             )
             .ignoresSafeArea()
             
-            VStack(spacing: 0) {
+            ZStack(alignment: .bottom) {
                 // Main content - БЕЗ свайпа между страницами, только кнопки навигации
                 Group {
                     switch selectedTab {
@@ -36,7 +36,7 @@ struct ContentView: View {
                 }
                 .animation(.easeInOut(duration: 0.3), value: selectedTab)
                 
-                // Custom bottom tab bar
+                // Fixed bottom tab bar
                 BottomTabBar(selectedTab: $selectedTab)
             }
         }

@@ -56,9 +56,9 @@ struct CardView: View {
                 .frame(width: 340, height: 200)
                 .shadow(color: .black.opacity(0.3), radius: 20, x: 0, y: 10)
                 .rotation3DEffect(
-                    .degrees(8),  // Наклон как в оригинальном Monobank
+                    .degrees(3),  // Очень небольшой наклон - карта почти лежит
                     axis: (x: 1, y: 0, z: 0),
-                    perspective: 0.6
+                    perspective: 0.8
                 )
             
             VStack(alignment: .leading, spacing: 0) {
@@ -101,9 +101,9 @@ struct CardView: View {
             }
             .frame(width: 340, height: 200)
             .rotation3DEffect(
-                .degrees(8),  // Наклон как в оригинальном Monobank
+                .degrees(3),  // Очень небольшой наклон - карта почти лежит
                 axis: (x: 1, y: 0, z: 0),
-                perspective: 0.6
+                perspective: 0.8
             )
         }
     }
