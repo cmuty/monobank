@@ -2,18 +2,7 @@ import SwiftUI
 
 struct CreditView: View {
     var body: some View {
-        ZStack {
-            LinearGradient(
-                gradient: Gradient(colors: [
-                    Color(red: 0.25, green: 0.27, blue: 0.65),
-                    Color(red: 0.35, green: 0.25, blue: 0.65)
-                ]),
-                startPoint: .top,
-                endPoint: .bottom
-            )
-            .ignoresSafeArea()
-            
-            VStack(spacing: 20) {
+        VStack(spacing: 20) {
                 // Header
                 Text("Кредити")
                     .font(.system(size: 28, weight: .bold))
@@ -37,7 +26,6 @@ struct CreditView: View {
                 }
                 
                 Spacer()
-            }
         }
     }
 }

@@ -13,17 +13,17 @@ struct BottomTabBar: View {
                 )
             }
         }
-        .padding(.horizontal, 16)
-        .padding(.top, 12)
-        .padding(.bottom, 28)
+        .padding(.horizontal, 12)
+        .padding(.top, 8)
+        .padding(.bottom, 20)
         .background(
-            // Закругленный фон с отступами от краев как в оригинале
-            RoundedRectangle(cornerRadius: 20)
+            // Белый фон без перекрытия контента
+            RoundedRectangle(cornerRadius: 25)
                 .fill(Color.white)
-                .shadow(color: .black.opacity(0.1), radius: 15, x: 0, y: -5)
+                .shadow(color: .black.opacity(0.1), radius: 12, x: 0, y: -4)
         )
-        .padding(.horizontal, 16)  // Отступы от краев экрана
-        .padding(.bottom, 16)
+        .padding(.horizontal, 20)  // Отступы от краев экрана
+        .padding(.bottom, 12)
     }
 }
 

@@ -12,21 +12,9 @@ struct MainView: View {
     }
     
     var body: some View {
-        ZStack {
-            // Background gradient - точно как в Monobank
-            LinearGradient(
-                gradient: Gradient(colors: [
-                    Color(red: 0.15, green: 0.18, blue: 0.45),  // Темно-синий
-                    Color(red: 0.25, green: 0.30, blue: 0.60),  // Средний синий
-                    Color(red: 0.35, green: 0.40, blue: 0.75)   // Светло-синий
-                ]),
-                startPoint: .top,
-                endPoint: .bottom
-            )
-            .ignoresSafeArea()
-            
-            ScrollView(showsIndicators: false) {
-                VStack(spacing: 0) {
+        GeometryReader { geometry in
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 0) {
                     // Top bar
                     HStack {
                         // Profile icon
@@ -196,9 +184,12 @@ struct MainView: View {
                             .fill(Color.white)
                     )
                 }
+                .scrollBounceBehavior(.basedOnSize)  // Ограничиваем bounce эффект
+                .clipped()  // Ограничиваем скролл
             }
-            .ignoresSafeArea(edges: .bottom)
+            .clipped()  // Дополнительное ограничение
         }
+        .ignoresSafeArea(edges: .bottom)
         .sheet(isPresented: $showTransactionList) {
             TransactionListView(transactions: $transactions, card: currentCard)
         }
