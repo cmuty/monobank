@@ -12,8 +12,7 @@ struct MainView: View {
     }
     
     var body: some View {
-        GeometryReader { geometry in
-                ScrollView(showsIndicators: false) {
+        ScrollView(showsIndicators: false) {
                     VStack(spacing: 0) {
                     // Top bar
                     HStack {
@@ -184,9 +183,6 @@ struct MainView: View {
                             .fill(Color.white)
                     )
                 }
-                .clipped()  // Ограничиваем скролл
-            }
-            .clipped()  // Дополнительное ограничение
         }
         .ignoresSafeArea(edges: .bottom)
         .sheet(isPresented: $showTransactionList) {

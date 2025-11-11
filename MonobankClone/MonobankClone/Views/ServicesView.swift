@@ -102,6 +102,7 @@ struct ServicesView: View {
                 }
             }
     }
+}
 
 struct ServiceCard: View {
     let service: ServiceItem
