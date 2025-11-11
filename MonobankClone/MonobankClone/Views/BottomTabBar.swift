@@ -13,8 +13,8 @@ struct BottomTabBar: View {
                 )
             }
         }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 12)
+        .padding(.horizontal, 8)
+        .padding(.vertical, 8)
         .background(
             // Карточка с темно-черным цветом как у Monobank карты
             RoundedRectangle(cornerRadius: 16)
@@ -39,15 +39,15 @@ struct TabBarButton: View {
         Button(action: action) {
             VStack(spacing: 6) {
                 Image(systemName: tab.icon)
-                    .font(.system(size: 20, weight: isSelected ? .semibold : .regular))
+                    .font(.system(size: 18, weight: isSelected ? .semibold : .regular))
                     .foregroundColor(isSelected ? Color(red: 1.0, green: 0.2, blue: 0.2) : Color.white.opacity(0.7))
                 
                 Text(tab.rawValue)
-                    .font(.system(size: 10, weight: isSelected ? .semibold : .medium))
+                    .font(.system(size: 9, weight: isSelected ? .semibold : .medium))
                     .foregroundColor(isSelected ? Color(red: 1.0, green: 0.2, blue: 0.2) : Color.white.opacity(0.8))
             }
             .frame(maxWidth: .infinity)
-            .padding(.vertical, 8)
+            .padding(.vertical, 6)
         }
     }
 }
