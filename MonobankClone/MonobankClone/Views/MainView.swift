@@ -137,20 +137,26 @@ struct MainView: View {
                     VStack(spacing: 0) {
                         HStack {
                             Text("Операції")
-                                .font(.system(size: 22, weight: .bold))
+                                .font(.system(size: 18, weight: .bold))
                                 .foregroundColor(.white)
                             
                             Spacer()
                             
                             Button(action: { showTransactionList = true }) {
-                                HStack(spacing: 4) {
+                                HStack(spacing: 3) {
                                     Text("Усі")
-                                        .font(.system(size: 16, weight: .medium))
+                                        .font(.system(size: 14, weight: .medium))
                                         .foregroundColor(.white)
                                     Image(systemName: "chevron.right")
-                                        .font(.system(size: 12, weight: .semibold))
+                                        .font(.system(size: 10, weight: .semibold))
                                         .foregroundColor(.white)
                                 }
+                                .padding(.horizontal, 10)
+                                .padding(.vertical, 6)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .fill(Color.white.opacity(0.15))
+                                )
                             }
                         }
                         .padding(.horizontal, 20)
