@@ -101,10 +101,10 @@ enum TabItem: String, CaseIterable {
     var icon: String {
         switch self {
         case .cards: return "creditcard.fill"
-        case .credits: return "chart.pie.fill"
+        case .credits: return "clock.fill"
         case .savings: return "target"
         case .more: return "square.grid.2x2.fill"
-        case .market: return "bag.fill"
+        case .market: return "lock.fill"
         }
     }
 }
@@ -144,7 +144,7 @@ extension Transaction {
             currency: "₴",
             date: Date(),
             category: .transfer,
-            iconName: "arrow.right",
+            iconName: "square.fill",
             iconColor: .gray
         ),
         Transaction(
@@ -154,7 +154,7 @@ extension Transaction {
             currency: "₴",
             date: Date(),
             category: .shopping,
-            iconName: "shippingbox.fill",
+            iconName: "plus.circle.fill",
             iconColor: .red
         ),
         Transaction(

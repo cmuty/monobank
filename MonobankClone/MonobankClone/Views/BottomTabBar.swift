@@ -13,15 +13,17 @@ struct BottomTabBar: View {
                 )
             }
         }
-        .padding(.horizontal, 12)
+        .padding(.horizontal, 16)
         .padding(.top, 12)
         .padding(.bottom, 28)
         .background(
-            // Красивый фон как в оригинале Monobank
-            RoundedRectangle(cornerRadius: 0)
+            // Закругленный фон с отступами от краев как в оригинале
+            RoundedRectangle(cornerRadius: 20)
                 .fill(Color.white)
-                .shadow(color: .black.opacity(0.08), radius: 20, x: 0, y: -8)
+                .shadow(color: .black.opacity(0.1), radius: 15, x: 0, y: -5)
         )
+        .padding(.horizontal, 16)  // Отступы от краев экрана
+        .padding(.bottom, 16)
     }
 }
 

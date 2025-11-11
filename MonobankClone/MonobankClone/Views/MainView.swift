@@ -25,7 +25,7 @@ struct MainView: View {
             )
             .ignoresSafeArea()
             
-            ScrollView {
+            ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
                     // Top bar
                     HStack {
@@ -90,8 +90,8 @@ struct MainView: View {
                         }
                     }
                     .padding(.horizontal, 20)
-                    .padding(.top, 50)
-                    .padding(.bottom, 30)
+                    .padding(.top, 5)
+                    .padding(.bottom, 20)
                     
                     // Balance
                     HStack(spacing: 8) {
@@ -120,22 +120,22 @@ struct MainView: View {
                     .frame(height: 220)
                     .tabViewStyle(.page(indexDisplayMode: .never))
                     
-                    // All cards button
+                    // All cards button - уже как в оригинале
                     Button(action: {}) {
-                        HStack(spacing: 8) {
+                        HStack(spacing: 6) {
                             Image(systemName: "creditcard.fill")
-                                .font(.system(size: 14))
+                                .font(.system(size: 12))
                             Text("Усі картки")
-                                .font(.system(size: 14, weight: .medium))
+                                .font(.system(size: 13, weight: .medium))
                         }
                         .foregroundColor(.white)
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 10)
-                        .background(Color.white.opacity(0.2))
-                        .cornerRadius(20)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
+                        .background(Color.white.opacity(0.25))
+                        .cornerRadius(16)
                     }
-                    .padding(.top, 20)
-                    .padding(.bottom, 30)
+                    .padding(.top, 15)
+                    .padding(.bottom, 20)
                     
                     // Action buttons
                     HStack(spacing: 20) {
@@ -155,9 +155,9 @@ struct MainView: View {
                         )
                     }
                     .padding(.horizontal, 20)
-                    .padding(.bottom, 30)
+                    .padding(.bottom, 15)
                     
-                    // Transactions section - с отступами от краев как в оригинале
+                    // Transactions section - поднимаем выше
                     VStack(spacing: 0) {
                         HStack {
                             Text("Операції")
@@ -181,17 +181,16 @@ struct MainView: View {
                         .padding(.top, 20)
                         .padding(.bottom, 16)
                         
-                        // Transaction list - с отступами от краев
-                        VStack(spacing: 1) {
+                        // Transaction list
+                        VStack(spacing: 8) {
                             ForEach(transactions.prefix(3)) { transaction in
                                 TransactionRow(transaction: transaction)
-                                    .padding(.horizontal, 16)  // Отступы от краев как в оригинале
                             }
                         }
+                        .padding(.horizontal, 20)
                         
                         Spacer(minLength: 100)
                     }
-                    .padding(.horizontal, 16)  // Отступы для всей секции
                     .background(
                         RoundedRectangle(cornerRadius: 20)
                             .fill(Color.white)
@@ -277,12 +276,7 @@ struct TransactionRow: View {
                     .foregroundColor(.gray)
             }
         }
-        .padding(.horizontal, 4)
-        .padding(.vertical, 16)
-        .background(
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color.white)
-        )
+        .padding(.vertical, 12)
     }
 }
 

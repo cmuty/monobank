@@ -8,8 +8,8 @@ struct CardView: View {
         case .black:
             return LinearGradient(
                 gradient: Gradient(colors: [
-                    Color(red: 0.15, green: 0.15, blue: 0.2),
-                    Color(red: 0.1, green: 0.1, blue: 0.15)
+                    Color(red: 0.2, green: 0.25, blue: 0.4),   // Темно-синий как в оригинале
+                    Color(red: 0.15, green: 0.2, blue: 0.35)   // Еще темнее синий
                 ]),
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
@@ -87,12 +87,8 @@ struct CardView: View {
                     .padding(.horizontal, 24)
                     .padding(.bottom, 16)
                 
-                // Bottom section
+                // Bottom section - только VISA, без имени владельца
                 HStack {
-                    Text(card.cardholderName)
-                        .font(.system(size: 12, weight: .medium))
-                        .foregroundColor(textColor.opacity(0.8))
-                    
                     Spacer()
                     
                     Text("VISA")
