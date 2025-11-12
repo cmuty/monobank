@@ -18,29 +18,28 @@ struct BottomTabBar: View {
             .padding(.horizontal, 8)
             .padding(.vertical, 8)
             .background(
-                // Карточка с темно-черным цветом как у Monobank карты
-                RoundedRectangle(cornerRadius: 24)
+                // Карточка с темно-черным цветом как у Monobank карты - более круглая
+                RoundedRectangle(cornerRadius: 32)
                     .fill(Color(red: 0.15, green: 0.15, blue: 0.2))
                     .overlay(
-                        RoundedRectangle(cornerRadius: 24)
+                        RoundedRectangle(cornerRadius: 32)
                             .stroke(Color.white.opacity(0.1), lineWidth: 1)
                     )
                     .shadow(color: .black.opacity(0.1), radius: 6, x: 0, y: -2)
             )
             
-            // Отдельная кнопка маркета
-            TabBarButton(
-                tab: .market,
-                isSelected: selectedTab == .market,
-                action: { selectedTab = .market }
-            )
-            .padding(.horizontal, 8)
-            .padding(.vertical, 8)
+            // Отдельная кнопка маркета - компактная круглая
+            Button(action: { selectedTab = .market }) {
+                Image(systemName: TabItem.market.icon)
+                    .font(.system(size: 18, weight: selectedTab == .market ? .semibold : .regular))
+                    .foregroundColor(selectedTab == .market ? Color(red: 1.0, green: 0.2, blue: 0.2) : Color.white.opacity(0.7))
+            }
+            .frame(width: 50, height: 50)
             .background(
-                RoundedRectangle(cornerRadius: 24)
+                Circle()
                     .fill(Color(red: 0.15, green: 0.15, blue: 0.2))
                     .overlay(
-                        RoundedRectangle(cornerRadius: 24)
+                        Circle()
                             .stroke(Color.white.opacity(0.1), lineWidth: 1)
                     )
                     .shadow(color: .black.opacity(0.1), radius: 6, x: 0, y: -2)

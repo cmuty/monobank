@@ -131,9 +131,9 @@ struct MainView: View {
                         )
                     }
                     .padding(.horizontal, 20)
-                    .padding(.bottom, 15)
+                    .padding(.bottom, 40)
                     
-                    // Transactions section - поднимаем выше
+                    // Transactions section - опускаем ниже
                     VStack(spacing: 0) {
                         HStack {
                             Text("Операції")
@@ -199,19 +199,19 @@ struct ActionButton: View {
             ZStack {
                 Circle()
                     .fill(Color(red: 0.15, green: 0.15, blue: 0.2))
-                    .frame(width: 50, height: 50)
+                    .frame(width: 60, height: 60)
                 
                 Image(systemName: icon)
-                    .font(.system(size: 20))
+                    .font(.system(size: 24))
                     .foregroundColor(.white)
             }
             
             Text(title)
-                .font(.system(size: 11, weight: .medium))
+                .font(.system(size: 12, weight: .medium))
                 .foregroundColor(.white)
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
-                .frame(height: 28)
+                .frame(height: 32)
         }
         .frame(maxWidth: .infinity)
     }
