@@ -11,21 +11,18 @@ struct BottomTabBar: View {
                     TabBarButton(
                         tab: tab,
                         isSelected: selectedTab == tab,
-                        action: { 
-                            withAnimation(.easeInOut(duration: 0.2)) {
-                                selectedTab = tab
-                            }
-                        }
+                        action: { selectedTab = tab }
                     )
                 }
             }
             .padding(.horizontal, 8)
             .padding(.vertical, 8)
             .background(
-                RoundedRectangle(cornerRadius: 20)
+                // Карточка с темно-черным цветом как у Monobank карты
+                RoundedRectangle(cornerRadius: 24)
                     .fill(Color(red: 0.15, green: 0.15, blue: 0.2))
                     .overlay(
-                        RoundedRectangle(cornerRadius: 20)
+                        RoundedRectangle(cornerRadius: 24)
                             .stroke(Color.white.opacity(0.1), lineWidth: 1)
                     )
                     .shadow(color: .black.opacity(0.1), radius: 6, x: 0, y: -2)
@@ -35,19 +32,15 @@ struct BottomTabBar: View {
             TabBarButton(
                 tab: .market,
                 isSelected: selectedTab == .market,
-                action: { 
-                    withAnimation(.easeInOut(duration: 0.2)) {
-                        selectedTab = .market
-                    }
-                }
+                action: { selectedTab = .market }
             )
             .padding(.horizontal, 8)
             .padding(.vertical, 8)
             .background(
-                RoundedRectangle(cornerRadius: 20)
+                RoundedRectangle(cornerRadius: 24)
                     .fill(Color(red: 0.15, green: 0.15, blue: 0.2))
                     .overlay(
-                        RoundedRectangle(cornerRadius: 20)
+                        RoundedRectangle(cornerRadius: 24)
                             .stroke(Color.white.opacity(0.1), lineWidth: 1)
                     )
                     .shadow(color: .black.opacity(0.1), radius: 6, x: 0, y: -2)
@@ -65,13 +58,13 @@ struct TabBarButton: View {
     
     var body: some View {
         Button(action: action) {
-            VStack(spacing: 4) {
+            VStack(spacing: 6) {
                 Image(systemName: tab.icon)
-                    .font(.system(size: 16, weight: isSelected ? .semibold : .regular))
+                    .font(.system(size: 18, weight: isSelected ? .semibold : .regular))
                     .foregroundColor(isSelected ? Color(red: 1.0, green: 0.2, blue: 0.2) : Color.white.opacity(0.7))
                 
                 Text(tab.rawValue)
-                    .font(.system(size: 10, weight: isSelected ? .semibold : .medium))
+                    .font(.system(size: 9, weight: isSelected ? .semibold : .medium))
                     .foregroundColor(isSelected ? Color(red: 1.0, green: 0.2, blue: 0.2) : Color.white.opacity(0.8))
             }
             .frame(maxWidth: .infinity)
