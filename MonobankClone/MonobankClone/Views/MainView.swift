@@ -72,6 +72,10 @@ struct MainView: View {
                     Spacer()
                         .frame(height: 30)
                     
+                    // Дополнительный отступ для баланса
+                    Spacer()
+                        .frame(height: 20)
+                    
                     // Balance
                     HStack(spacing: 8) {
                         Button(action: {}) {
