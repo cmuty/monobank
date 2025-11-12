@@ -62,50 +62,38 @@ struct CardView: View {
                     perspective: 0.4
                 )
             
-            VStack(alignment: .leading, spacing: 0) {
-                // Top section - monobank logo
-                HStack {
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text("monobank")
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundColor(textColor)
-                        Text("Universal Bank")
-                            .font(.system(size: 8))
-                            .foregroundColor(textColor.opacity(0.6))
-                    }
-                    
-                    Spacer()
+            ZStack {
+                // monobank logo - сверху слева
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("monobank")
+                        .font(.system(size: 16, weight: .medium))
+                        .foregroundColor(textColor)
+                    Text("Universal Bank")
+                        .font(.system(size: 8))
+                        .foregroundColor(textColor.opacity(0.6))
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                 .padding(.top, 20)
-                .padding(.horizontal, 24)
+                .padding(.leading, 24)
                 
-                // Фиксированный отступ вместо Spacer
-                Rectangle()
-                    .fill(Color.clear)
-                    .frame(height: 80)
-                
-                // Card number
+                // Card number - по центру
                 Text(card.maskedNumber)
                     .font(.system(size: 18, weight: .medium, design: .monospaced))
                     .foregroundColor(textColor.opacity(0.8))
-                    .padding(.horizontal, 24)
-                    .padding(.bottom, 16)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                 
-                // Bottom section - только VISA, без имени владельца
-                HStack {
-                    Spacer()
-                    
-                    Text("VISA")
-                        .font(.system(size: 20, weight: .bold))
-                        .italic()
-                        .foregroundColor(textColor)
-                }
-                .padding(.horizontal, 24)
-                .padding(.bottom, 20)
+                // VISA - снизу справа
+                Text("VISA")
+                    .font(.system(size: 20, weight: .bold))
+                    .italic()
+                    .foregroundColor(textColor)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+                    .padding(.bottom, 20)
+                    .padding(.trailing, 24)
             }
             .frame(width: 340, height: 200)
             .rotation3DEffect(
-                .degrees(disableTilt ? 0 : (card.cardType == .black || card.cardType == .white ? 75 : 0.5)),  // Черная и белая карты наклонены
+                .degrees(disableTilt ? 0 : (card.cardType == .black || card.cardType == .white ? 60 : 0.5)),  // Черная и белая карты наклонены
                 axis: (x: 1, y: 0, z: 0),
                 perspective: 0.4
             )
