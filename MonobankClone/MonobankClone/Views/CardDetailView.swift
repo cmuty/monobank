@@ -7,11 +7,11 @@ struct CardDetailView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                // Background gradient
+                // Background gradient - такой же как в приложении
                 LinearGradient(
                     gradient: Gradient(colors: [
-                        Color(red: 0.25, green: 0.27, blue: 0.65),
-                        Color(red: 0.35, green: 0.25, blue: 0.65)
+                        Color(red: 0.078, green: 0.145, blue: 0.373),  // #14255F
+                        Color(red: 0.0, green: 0.043, blue: 0.118)     // #000B1E
                     ]),
                     startPoint: .top,
                     endPoint: .bottom
@@ -20,8 +20,8 @@ struct CardDetailView: View {
                 
                 ScrollView {
                     VStack(spacing: 20) {
-                        // Large card
-                        CardView(card: card)
+                        // Large card - без наклона
+                        CardView(card: card, disableTilt: true)
                             .scaleEffect(1.1)
                             .padding(.top, 40)
                             .padding(.bottom, 20)
@@ -56,20 +56,12 @@ struct CardDetailView: View {
                                     iconColor: .white
                                 )
                                 
-                                Divider()
-                                    .background(Color.white.opacity(0.2))
-                                    .padding(.leading, 76)
-                                
                                 SettingRow(
                                     icon: "lock.fill",
                                     title: "Заблокувати картку",
                                     subtitle: "Ви завжди зможете її розблокувати",
                                     iconColor: .white
                                 )
-                                
-                                Divider()
-                                    .background(Color.white.opacity(0.2))
-                                    .padding(.leading, 76)
                                 
                                 SettingRow(
                                     icon: "creditcard.fill",
@@ -109,20 +101,12 @@ struct CardDetailView: View {
                                 iconColor: .white
                             )
                             
-                            Divider()
-                                .background(Color.white.opacity(0.2))
-                                .padding(.leading, 76)
-                            
                             SettingRow(
                                 icon: "arrow.right.arrow.left",
                                 title: "Перевипустити картку",
                                 subtitle: nil,
                                 iconColor: .white
                             )
-                            
-                            Divider()
-                                .background(Color.white.opacity(0.2))
-                                .padding(.leading, 76)
                             
                             SettingRow(
                                 icon: "magnifyingglass",
@@ -131,20 +115,12 @@ struct CardDetailView: View {
                                 iconColor: .white
                             )
                             
-                            Divider()
-                                .background(Color.white.opacity(0.2))
-                                .padding(.leading, 76)
-                            
                             SettingRow(
                                 icon: "doc.plaintext.fill",
                                 title: "Реквізити картки",
                                 subtitle: "Для поповнення за IBAN",
                                 iconColor: .white
                             )
-                            
-                            Divider()
-                                .background(Color.white.opacity(0.2))
-                                .padding(.leading, 76)
                             
                             SettingRow(
                                 icon: "doc.fill",

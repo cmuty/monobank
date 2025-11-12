@@ -2,6 +2,7 @@ import SwiftUI
 
 struct CardView: View {
     let card: Card
+    var disableTilt: Bool = false
     
     var cardGradient: LinearGradient {
         switch card.cardType {
@@ -56,7 +57,7 @@ struct CardView: View {
                 .frame(width: 340, height: 200)
                 .shadow(color: .black.opacity(0.3), radius: 20, x: 0, y: 10)
                 .rotation3DEffect(
-                    .degrees(card.cardType == .black ? 45 : 0.5),  // Черная карта экстремально наклонена
+                    .degrees(disableTilt ? 0 : (card.cardType == .black || card.cardType == .white ? 75 : 0.5)),  // Черная и белая карты наклонены
                     axis: (x: 1, y: 0, z: 0),
                     perspective: 0.4
                 )
@@ -101,7 +102,7 @@ struct CardView: View {
             }
             .frame(width: 340, height: 200)
             .rotation3DEffect(
-                .degrees(card.cardType == .black ? 45 : 0.5),  // Черная карта экстремально наклонена
+                .degrees(disableTilt ? 0 : (card.cardType == .black || card.cardType == .white ? 75 : 0.5)),  // Черная и белая карты наклонены
                 axis: (x: 1, y: 0, z: 0),
                 perspective: 0.4
             )
