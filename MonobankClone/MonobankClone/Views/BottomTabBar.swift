@@ -15,7 +15,7 @@ struct BottomTabBar: View {
                     )
                 }
             }
-            .padding(.horizontal, 3)
+            .padding(.horizontal, 2)
             .padding(.vertical, 6)
             .background(
                 // Карточка с темно-черным цветом как у Monobank карты - более круглая
