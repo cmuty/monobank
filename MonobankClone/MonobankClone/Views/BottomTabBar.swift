@@ -13,16 +13,15 @@ struct BottomTabBar: View {
                         withAnimation(.easeInOut(duration: 0.2)) {
                             selectedTab = tab
                         }
-                        HapticManager.shared.light()
                     }
                 )
             }
         }
-        .frame(height: DesignSystem.Sizes.tabBarHeight)
+        .frame(height: 88)
         .background(
             Rectangle()
-                .fill(DesignSystem.Colors.bottomSheetBg)
-                .applyShadow(DesignSystem.Shadow.tabBar)
+                .fill(Color.white)
+                .shadow(color: Color.black.opacity(0.08), radius: 6, x: 0, y: -1)
         )
         .ignoresSafeArea(edges: .bottom)
     }
@@ -38,13 +37,13 @@ struct TabBarButton: View {
             VStack(spacing: 4) {
                 Image(systemName: tab.icon)
                     .font(.system(size: 20, weight: isSelected ? .semibold : .regular))
-                    .foregroundColor(isSelected ? DesignSystem.Colors.tabActive : DesignSystem.Colors.tabMuted)
+                    .foregroundColor(isSelected ? Color(red: 229/255, green: 57/255, blue: 53/255) : Color(red: 165/255, green: 165/255, blue: 165/255))
                     .scaleEffect(isSelected ? 1.1 : 1.0)
                     .animation(.spring(response: 0.3, dampingFraction: 0.7), value: isSelected)
                 
                 Text(tab.rawValue)
-                    .font(DesignSystem.Typography.tabBar)
-                    .foregroundColor(isSelected ? DesignSystem.Colors.tabActive : DesignSystem.Colors.tabMuted)
+                    .font(.system(size: 12, weight: .medium))
+                    .foregroundColor(isSelected ? Color(red: 229/255, green: 57/255, blue: 53/255) : Color(red: 165/255, green: 165/255, blue: 165/255))
             }
             .frame(maxWidth: .infinity)
             .padding(.top, 8)

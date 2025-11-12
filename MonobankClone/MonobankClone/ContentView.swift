@@ -7,16 +7,23 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            // Background gradient using design system
-            DesignSystem.backgroundGradient
-                .ignoresSafeArea()
+            // Background gradient
+            LinearGradient(
+                gradient: Gradient(colors: [
+                    Color(red: 0/255, green: 26/255, blue: 117/255),  // #001A75
+                    Color(red: 46/255, green: 88/255, blue: 165/255)  // #2E58A5
+                ]),
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .ignoresSafeArea()
             
             ZStack(alignment: .bottom) {
                 // Main content - БЕЗ свайпа между страницами, только кнопки навигации
                 Group {
                     switch selectedTab {
                     case .cards:
-                        CardsView(cards: $cards, transactions: $transactions)
+                        MainView(cards: $cards, transactions: $transactions)
                     case .credits:
                         CreditView()
                     case .savings:
