@@ -15,8 +15,8 @@ struct BottomTabBar: View {
                     )
                 }
             }
-            .padding(.horizontal, 6)
-            .padding(.vertical, 6)
+            .padding(.horizontal, 4)
+            .padding(.vertical, 10)
             .background(
                 // Карточка с темно-черным цветом как у Monobank карты - более круглая
                 RoundedRectangle(cornerRadius: 32)
@@ -40,7 +40,7 @@ struct BottomTabBar: View {
                         .foregroundColor(selectedTab == .market ? Color(red: 1.0, green: 0.2, blue: 0.2) : Color.white.opacity(0.8))
                 }
             }
-            .frame(width: 60, height: 60)
+            .frame(width: 55, height: 70)
             .background(
                 RoundedRectangle(cornerRadius: 30)
                     .fill(Color(red: 0.15, green: 0.15, blue: 0.2))
@@ -73,7 +73,7 @@ struct TabBarButton: View {
                     .foregroundColor(isSelected ? Color(red: 1.0, green: 0.2, blue: 0.2) : Color.white.opacity(0.8))
             }
             .frame(maxWidth: .infinity)
-            .padding(.vertical, 4)
+            .padding(.vertical, 8)
         }
     }
 }
