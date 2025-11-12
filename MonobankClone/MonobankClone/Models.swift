@@ -11,6 +11,7 @@ struct Card: Identifiable, Codable {
     var cardType: CardType
     var isBlocked: Bool
     var creditLimit: Double
+    var transactions: [Transaction]
     
     enum CardType: String, Codable {
         case black
@@ -120,7 +121,29 @@ extension Card {
             currency: "₴",
             cardType: .black,
             isBlocked: false,
-            creditLimit: 0
+            creditLimit: 0,
+            transactions: [
+                Transaction(
+                    id: UUID().uuidString,
+                    title: "З Білої картки",
+                    amount: 1.00,
+                    currency: "₴",
+                    date: Date(),
+                    category: .transfer,
+                    iconName: "arrow.down.square.fill",
+                    iconColor: .green
+                ),
+                Transaction(
+                    id: UUID().uuidString,
+                    title: "Переказ на картку",
+                    amount: -34.00,
+                    currency: "₴",
+                    date: Date(),
+                    category: .transfer,
+                    iconName: "square.fill",
+                    iconColor: .gray
+                )
+            ]
         ),
         Card(
             id: UUID().uuidString,
@@ -130,7 +153,29 @@ extension Card {
             currency: "₴",
             cardType: .white,
             isBlocked: false,
-            creditLimit: 0
+            creditLimit: 0,
+            transactions: [
+                Transaction(
+                    id: UUID().uuidString,
+                    title: "Нова пошта",
+                    amount: -281.56,
+                    currency: "₴",
+                    date: Date(),
+                    category: .shopping,
+                    iconName: "plus.circle.fill",
+                    iconColor: .red
+                ),
+                Transaction(
+                    id: UUID().uuidString,
+                    title: "Telegram",
+                    amount: -83.99,
+                    currency: "₴",
+                    date: Date(),
+                    category: .payment,
+                    iconName: "paperplane.fill",
+                    iconColor: .blue
+                )
+            ]
         )
     ]
 }

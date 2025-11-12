@@ -3,7 +3,6 @@ import SwiftUI
 struct ContentView: View {
     @State private var selectedTab: TabItem = .cards
     @State private var cards: [Card] = Card.sampleCards
-    @State private var transactions: [Transaction] = Transaction.sampleTransactions
     
     var body: some View {
         ZStack {
@@ -23,7 +22,7 @@ struct ContentView: View {
                 Group {
                     switch selectedTab {
                     case .cards:
-                        MainView(cards: $cards, transactions: $transactions)
+                        MainView(cards: $cards)
                     case .credits:
                         CreditView()
                     case .savings:

@@ -2,7 +2,6 @@ import SwiftUI
 
 struct MainView: View {
     @Binding var cards: [Card]
-    @Binding var transactions: [Transaction]
     @State private var currentCardIndex = 0
     @State private var showTransactionList = false
     @State private var showCardDetail = false
@@ -69,6 +68,10 @@ struct MainView: View {
                     .padding(.top, 5)
                     .padding(.bottom, 20)
                     
+                    // Отступ сверху чтобы опустить весь интерфейс
+                    Spacer()
+                        .frame(height: 30)
+                    
                     // Balance
                     HStack(spacing: 8) {
                         Button(action: {}) {
@@ -95,6 +98,16 @@ struct MainView: View {
                     }
                     .frame(height: 220)
                     .tabViewStyle(.page(indexDisplayMode: .never))
+                    
+                    // Card indicators - индикаторы карт
+                    HStack(spacing: 8) {
+                        ForEach(cards.indices, id: \.self) { index in
+                            Circle()
+                                .fill(currentCardIndex == index ? Color.white : Color.white.opacity(0.3))
+                                .frame(width: 8, height: 8)
+                        }
+                    }
+                    .padding(.top, 12)
                     
                     // All cards button - уже как в оригинале
                     Button(action: {}) {
@@ -163,9 +176,9 @@ struct MainView: View {
                         .padding(.top, 20)
                         .padding(.bottom, 16)
                         
-                        // Transaction list
+                        // Transaction list - показываем транзакции текущей карты
                         VStack(spacing: 8) {
-                            ForEach(transactions.prefix(3)) { transaction in
+                            ForEach(currentCard.transactions.prefix(3)) { transaction in
                                 TransactionRow(transaction: transaction)
                             }
                         }
@@ -182,7 +195,7 @@ struct MainView: View {
         }
         .ignoresSafeArea(edges: .bottom)
         .sheet(isPresented: $showTransactionList) {
-            TransactionListView(transactions: $transactions, card: currentCard)
+            TransactionListView(transactions: .constant(currentCard.transactions), card: currentCard)
         }
         .sheet(isPresented: $showCardDetail) {
             CardDetailView(card: currentCard)
@@ -263,5 +276,5 @@ struct TransactionRow: View {
 }
 
 #Preview {
-    MainView(cards: .constant(Card.sampleCards), transactions: .constant(Transaction.sampleTransactions))
+    MainView(cards: .constant(Card.sampleCards))
 }

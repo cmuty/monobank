@@ -15,8 +15,8 @@ struct BottomTabBar: View {
                     )
                 }
             }
-            .padding(.horizontal, 8)
-            .padding(.vertical, 8)
+            .padding(.horizontal, 6)
+            .padding(.vertical, 6)
             .background(
                 // Карточка с темно-черным цветом как у Monobank карты - более круглая
                 RoundedRectangle(cornerRadius: 32)
@@ -28,22 +28,28 @@ struct BottomTabBar: View {
                     .shadow(color: .black.opacity(0.1), radius: 6, x: 0, y: -2)
             )
             
-            // Отдельная кнопка маркета - компактная круглая
-            Button(action: { selectedTab = .market }) {
-                Image(systemName: TabItem.market.icon)
-                    .font(.system(size: 18, weight: selectedTab == .market ? .semibold : .regular))
-                    .foregroundColor(selectedTab == .market ? Color(red: 1.0, green: 0.2, blue: 0.2) : Color.white.opacity(0.7))
+            // Отдельная кнопка маркета с надписью
+            VStack(spacing: 4) {
+                Button(action: { selectedTab = .market }) {
+                    Image(systemName: TabItem.market.icon)
+                        .font(.system(size: 16, weight: selectedTab == .market ? .semibold : .regular))
+                        .foregroundColor(selectedTab == .market ? Color(red: 1.0, green: 0.2, blue: 0.2) : Color.white.opacity(0.7))
+                }
+                .frame(width: 44, height: 44)
+                .background(
+                    Circle()
+                        .fill(Color(red: 0.15, green: 0.15, blue: 0.2))
+                        .overlay(
+                            Circle()
+                                .stroke(Color.white.opacity(0.1), lineWidth: 1)
+                        )
+                        .shadow(color: .black.opacity(0.1), radius: 6, x: 0, y: -2)
+                )
+                
+                Text("Маркет")
+                    .font(.system(size: 9, weight: selectedTab == .market ? .semibold : .medium))
+                    .foregroundColor(selectedTab == .market ? Color(red: 1.0, green: 0.2, blue: 0.2) : Color.white.opacity(0.8))
             }
-            .frame(width: 50, height: 50)
-            .background(
-                Circle()
-                    .fill(Color(red: 0.15, green: 0.15, blue: 0.2))
-                    .overlay(
-                        Circle()
-                            .stroke(Color.white.opacity(0.1), lineWidth: 1)
-                    )
-                    .shadow(color: .black.opacity(0.1), radius: 6, x: 0, y: -2)
-            )
         }
         .padding(.horizontal, 20)
         .padding(.bottom, 16)
@@ -57,9 +63,9 @@ struct TabBarButton: View {
     
     var body: some View {
         Button(action: action) {
-            VStack(spacing: 6) {
+            VStack(spacing: 4) {
                 Image(systemName: tab.icon)
-                    .font(.system(size: 18, weight: isSelected ? .semibold : .regular))
+                    .font(.system(size: 16, weight: isSelected ? .semibold : .regular))
                     .foregroundColor(isSelected ? Color(red: 1.0, green: 0.2, blue: 0.2) : Color.white.opacity(0.7))
                 
                 Text(tab.rawValue)
@@ -67,7 +73,7 @@ struct TabBarButton: View {
                     .foregroundColor(isSelected ? Color(red: 1.0, green: 0.2, blue: 0.2) : Color.white.opacity(0.8))
             }
             .frame(maxWidth: .infinity)
-            .padding(.vertical, 6)
+            .padding(.vertical, 4)
         }
     }
 }
