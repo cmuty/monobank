@@ -84,7 +84,7 @@ struct MainView: View {
                             .font(.system(size: 48, weight: .bold))
                             .foregroundColor(.white)
                     }
-                    .padding(.bottom, 40)
+                    .padding(.bottom, currentCard.cardType == .black ? 60 : 40)
                     
                     // Card
                     TabView(selection: $currentCardIndex) {
