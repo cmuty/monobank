@@ -56,9 +56,9 @@ struct CardView: View {
                 .frame(width: 340, height: 200)
                 .shadow(color: .black.opacity(0.3), radius: 20, x: 0, y: 10)
                 .rotation3DEffect(
-                    .degrees(1.5),  // Еще меньше наклон - карта почти полностью лежит
+                    .degrees(0.5),  // Минимальный наклон - карта почти полностью плоская
                     axis: (x: 1, y: 0, z: 0),
-                    perspective: 1.0
+                    perspective: 1.5
                 )
             
             VStack(alignment: .leading, spacing: 0) {
@@ -101,9 +101,9 @@ struct CardView: View {
             }
             .frame(width: 340, height: 200)
             .rotation3DEffect(
-                .degrees(1.5),  // Еще меньше наклон - карта почти полностью лежит
+                .degrees(0.5),  // Минимальный наклон - карта почти полностью плоская
                 axis: (x: 1, y: 0, z: 0),
-                perspective: 1.0
+                perspective: 1.5
             )
         }
     }

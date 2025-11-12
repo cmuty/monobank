@@ -22,7 +22,7 @@ struct Card: Identifiable, Codable {
     var maskedNumber: String {
         let parts = cardNumber.split(separator: " ")
         if parts.count == 4 {
-            return "\(parts[0]) **** **** \(parts[3])"
+            return "\(parts[0]) •••• •••• \(parts[3])"
         }
         return cardNumber
     }
@@ -114,9 +114,9 @@ extension Card {
     static let sampleCards: [Card] = [
         Card(
             id: UUID().uuidString,
-            cardNumber: "4441 **** **** 5382",
+            cardNumber: "4441 1234 5678 6382",
             cardholderName: "BOHDAN ZARVA",
-            balance: 0.33,
+            balance: 1.33,
             currency: "₴",
             cardType: .black,
             isBlocked: false,
@@ -124,9 +124,9 @@ extension Card {
         ),
         Card(
             id: UUID().uuidString,
-            cardNumber: "4874 **** **** 3497",
+            cardNumber: "4874 5678 9012 3497",
             cardholderName: "BOHDAN ZARVA",
-            balance: 1.03,
+            balance: 18492.03,
             currency: "₴",
             cardType: .white,
             isBlocked: false,

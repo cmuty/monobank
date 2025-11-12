@@ -9,24 +9,22 @@ struct BottomTabBar: View {
                 TabBarButton(
                     tab: tab,
                     isSelected: selectedTab == tab,
-                    action: { selectedTab = tab }
+                    action: { 
+                        withAnimation(.easeInOut(duration: 0.2)) {
+                            selectedTab = tab
+                        }
+                        HapticManager.shared.light()
+                    }
                 )
             }
         }
-        .padding(.horizontal, 8)
-        .padding(.vertical, 8)
+        .frame(height: DesignSystem.Sizes.tabBarHeight)
         .background(
-            // Карточка с темно-черным цветом как у Monobank карты
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Color(red: 0.15, green: 0.15, blue: 0.2))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(Color.white.opacity(0.1), lineWidth: 1)
-                )
-                .shadow(color: .black.opacity(0.1), radius: 6, x: 0, y: -2)
+            Rectangle()
+                .fill(DesignSystem.Colors.bottomSheetBg)
+                .applyShadow(DesignSystem.Shadow.tabBar)
         )
-        .padding(.horizontal, 20)
-        .padding(.bottom, 16)
+        .ignoresSafeArea(edges: .bottom)
     }
 }
 
@@ -37,18 +35,22 @@ struct TabBarButton: View {
     
     var body: some View {
         Button(action: action) {
-            VStack(spacing: 6) {
+            VStack(spacing: 4) {
                 Image(systemName: tab.icon)
-                    .font(.system(size: 18, weight: isSelected ? .semibold : .regular))
-                    .foregroundColor(isSelected ? Color(red: 1.0, green: 0.2, blue: 0.2) : Color.white.opacity(0.7))
+                    .font(.system(size: 20, weight: isSelected ? .semibold : .regular))
+                    .foregroundColor(isSelected ? DesignSystem.Colors.tabActive : DesignSystem.Colors.tabMuted)
+                    .scaleEffect(isSelected ? 1.1 : 1.0)
+                    .animation(.spring(response: 0.3, dampingFraction: 0.7), value: isSelected)
                 
                 Text(tab.rawValue)
-                    .font(.system(size: 9, weight: isSelected ? .semibold : .medium))
-                    .foregroundColor(isSelected ? Color(red: 1.0, green: 0.2, blue: 0.2) : Color.white.opacity(0.8))
+                    .font(DesignSystem.Typography.tabBar)
+                    .foregroundColor(isSelected ? DesignSystem.Colors.tabActive : DesignSystem.Colors.tabMuted)
             }
             .frame(maxWidth: .infinity)
-            .padding(.vertical, 6)
+            .padding(.top, 8)
+            .padding(.bottom, 20) // Extra padding for home indicator
         }
+        .contentShape(Rectangle())
     }
 }
 
