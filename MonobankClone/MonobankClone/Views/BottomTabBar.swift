@@ -28,28 +28,28 @@ struct BottomTabBar: View {
                     .shadow(color: .black.opacity(0.1), radius: 6, x: 0, y: -2)
             )
             
-            // Отдельная кнопка маркета с надписью
-            VStack(spacing: 4) {
-                Button(action: { selectedTab = .market }) {
+            // Отдельная кнопка маркета - полноценная кнопка
+            Button(action: { selectedTab = .market }) {
+                VStack(spacing: 4) {
                     Image(systemName: TabItem.market.icon)
                         .font(.system(size: 16, weight: selectedTab == .market ? .semibold : .regular))
                         .foregroundColor(selectedTab == .market ? Color(red: 1.0, green: 0.2, blue: 0.2) : Color.white.opacity(0.7))
+                    
+                    Text("Маркет")
+                        .font(.system(size: 9, weight: selectedTab == .market ? .semibold : .medium))
+                        .foregroundColor(selectedTab == .market ? Color(red: 1.0, green: 0.2, blue: 0.2) : Color.white.opacity(0.8))
                 }
-                .frame(width: 44, height: 44)
-                .background(
-                    Circle()
-                        .fill(Color(red: 0.15, green: 0.15, blue: 0.2))
-                        .overlay(
-                            Circle()
-                                .stroke(Color.white.opacity(0.1), lineWidth: 1)
-                        )
-                        .shadow(color: .black.opacity(0.1), radius: 6, x: 0, y: -2)
-                )
-                
-                Text("Маркет")
-                    .font(.system(size: 9, weight: selectedTab == .market ? .semibold : .medium))
-                    .foregroundColor(selectedTab == .market ? Color(red: 1.0, green: 0.2, blue: 0.2) : Color.white.opacity(0.8))
             }
+            .frame(width: 60, height: 60)
+            .background(
+                RoundedRectangle(cornerRadius: 30)
+                    .fill(Color(red: 0.15, green: 0.15, blue: 0.2))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 30)
+                            .stroke(Color.white.opacity(0.1), lineWidth: 1)
+                    )
+                    .shadow(color: .black.opacity(0.1), radius: 6, x: 0, y: -2)
+            )
         }
         .padding(.horizontal, 20)
         .padding(.bottom, 16)
