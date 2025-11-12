@@ -79,7 +79,10 @@ struct CardView: View {
                 .padding(.top, 20)
                 .padding(.horizontal, 24)
                 
-                Spacer()
+                // Фиксированный отступ вместо Spacer
+                Rectangle()
+                    .fill(Color.clear)
+                    .frame(height: 80)
                 
                 // Card number
                 Text(card.maskedNumber)
