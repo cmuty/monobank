@@ -7,11 +7,11 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            // Background gradient
+            // Background gradient - от синего к белому
             LinearGradient(
                 gradient: Gradient(colors: [
-                    Color(red: 0/255, green: 26/255, blue: 117/255),  // #001A75
-                    Color(red: 46/255, green: 88/255, blue: 165/255)  // #2E58A5
+                    Color(red: 0/255, green: 26/255, blue: 117/255),  // #001A75 синий сверху
+                    Color.white  // белый снизу
                 ]),
                 startPoint: .top,
                 endPoint: .bottom
