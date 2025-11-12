@@ -76,9 +76,9 @@ struct CardView: View {
                 .padding(.top, 20)
                 .padding(.leading, 24)
                 
-                // Card number - по центру
+                // Card number - по центру, крупнее
                 Text(card.maskedNumber)
-                    .font(.system(size: 18, weight: .medium, design: .monospaced))
+                    .font(.system(size: 24, weight: .medium, design: .monospaced))
                     .foregroundColor(textColor.opacity(0.8))
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                 
