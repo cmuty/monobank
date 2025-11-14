@@ -110,7 +110,7 @@ struct MainView: View {
                                     .shadow(color: Color(red: 0.08, green: 0.14, blue: 0.37).opacity(0.4), radius: 15, x: 0, y: 8)
                                     .offset(y: 20)  // Смещаем вниз чтобы была видна только снизу
                                     .rotation3DEffect(
-                                        .degrees(25),
+                                        .degrees(cards[index].cardType == .black || cards[index].cardType == .white ? 60 : 0.5),
                                         axis: (x: 1, y: 0, z: 0),
                                         perspective: 0.4
                                     )
