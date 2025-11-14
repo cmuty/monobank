@@ -138,9 +138,9 @@ struct MainView: View {
                         .background(Color.black.opacity(0.4))
                         .cornerRadius(12)
                     }
-                    .padding(.top, 4)
-                    .padding(.bottom, 15)
-                    .offset(y: -20)
+                    .padding(.top, 2)
+                    .padding(.bottom, 10)
+                    .offset(y: -35)
                     
                     // Action buttons
                     HStack(spacing: 20) {
@@ -160,8 +160,8 @@ struct MainView: View {
                         )
                     }
                     .padding(.horizontal, 20)
-                    .padding(.bottom, 20)
-                    .offset(y: -20)
+                    .padding(.bottom, 15)
+                    .offset(y: -35)
                     
                     // Transactions section - поднимаем выше
                     VStack(spacing: 0) {
@@ -208,7 +208,7 @@ struct MainView: View {
                             .fill(Color.white)  // Белый цвет для карточки операций
                     )
                     .padding(.horizontal, 16)  // Отступы от краев экрана
-                    .offset(y: -20)
+                    .offset(y: -35)
                 }
             }
         }
