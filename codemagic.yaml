@@ -61,6 +61,76 @@ workflows:
           success: true
           failure: true
 
+  ipa-workflow:
+    name: Build IPA for Device
+    max_build_duration: 45
+    instance_type: mac_mini_m1
+    environment:
+      vars:
+        XCODE_PROJECT: "MonobankClone.xcodeproj"
+        XCODE_SCHEME: "MonobankClone"
+        BUNDLE_ID: "com.nutipov.monobankclone"
+      xcode: latest
+    scripts:
+      - name: Build unsigned IPA
+        script: |
+          set -e
+          set -x
+          
+          cd MonobankClone
+          
+          # Очищаем предыдущие сборки
+          xcodebuild clean -project "$XCODE_PROJECT" -scheme "$XCODE_SCHEME"
+          
+          # Создаем архив без подписи
+          xcodebuild archive \
+            -project "$XCODE_PROJECT" \
+            -scheme "$XCODE_SCHEME" \
+            -archivePath "$CM_BUILD_DIR/MonobankClone.xcarchive" \
+            -destination 'generic/platform=iOS' \
+            -configuration Release \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            DEVELOPMENT_TEAM="" \
+            PROVISIONING_PROFILE="" \
+            IPHONEOS_DEPLOYMENT_TARGET=15.0
+      
+      - name: Create IPA
+        script: |
+          set -e
+          set -x
+          
+          cd "$CM_BUILD_DIR"
+          
+          # Создаем IPA
+          mkdir -p ipa
+          mkdir -p Payload
+          
+          # Копируем .app в Payload
+          cp -r MonobankClone.xcarchive/Products/Applications/MonobankClone.app Payload/
+          
+          # Создаем IPA
+          zip -r ipa/MonobankClone.ipa Payload
+          
+          # Очищаем
+          rm -rf Payload
+          
+          echo "✅ IPA created:"
+          ls -lh ipa/MonobankClone.ipa
+    
+    artifacts:
+      - ipa/*.ipa
+      - MonobankClone.xcarchive
+    
+    publishing:
+      email:
+        recipients:
+          - nutipovottakvot@gmail.com
+        notify:
+          success: true
+          failure: true
+
   ios-workflow:
     name: Monobank Clone - iOS Build for Sideloadly
     max_build_duration: 60

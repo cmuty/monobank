@@ -90,7 +90,7 @@ struct MainView: View {
                             .font(.system(size: 48, weight: .bold))
                             .foregroundColor(.white)
                     }
-                    .padding(.bottom, 80)
+                    .padding(.bottom, 100)
                     
                     // Card with background card
                     TabView(selection: $currentCardIndex) {
