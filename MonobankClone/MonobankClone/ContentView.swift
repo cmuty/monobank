@@ -6,11 +6,12 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            // Background gradient - точно как на скриншоте Monobank
+            // Background gradient - трехцветный как на скриншоте Monobank
             LinearGradient(
                 gradient: Gradient(colors: [
-                    Color(red: 0.08, green: 0.14, blue: 0.37),     // Темно-синий Monobank сверху
-                    Color(red: 0.95, green: 0.96, blue: 0.98)      // Почти белый снизу
+                    Color(red: 0.08, green: 0.14, blue: 0.37),     // Темно-синий сверху
+                    Color(red: 0.25, green: 0.35, blue: 0.65),     // Мягкий синий в середине
+                    Color(red: 0.95, green: 0.96, blue: 0.98)      // Белый снизу
                 ]),
                 startPoint: .top,
                 endPoint: .bottom

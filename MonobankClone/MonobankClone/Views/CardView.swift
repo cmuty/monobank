@@ -78,7 +78,8 @@ struct CardView: View {
                 
                 // Card number - по центру, крупнее
                 Text(card.maskedNumber)
-                    .font(.system(size: 28, weight: .light, design: .default))
+                    .font(.custom("SF Pro Display", size: 28))
+                    .fontWeight(.light)
                     .kerning(2.0)
                     .foregroundColor(textColor.opacity(0.9))
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)

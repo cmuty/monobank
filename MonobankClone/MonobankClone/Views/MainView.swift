@@ -72,11 +72,11 @@ struct MainView: View {
                 VStack(spacing: 0) {
                     // Отступ сверху чтобы опустить весь интерфейс
                     Spacer()
-                        .frame(height: 30)
+                        .frame(height: 60)
                     
                     // Дополнительный отступ для баланса
                     Spacer()
-                        .frame(height: 20)
+                        .frame(height: 40)
                     
                     // Balance
                     HStack(spacing: 8) {
@@ -90,7 +90,7 @@ struct MainView: View {
                             .font(.system(size: 48, weight: .bold))
                             .foregroundColor(.white)
                     }
-                    .padding(.bottom, 50)
+                    .padding(.bottom, 70)
                     
                     // Card
                     TabView(selection: $currentCardIndex) {
@@ -157,7 +157,7 @@ struct MainView: View {
                         HStack {
                             Text("Операції")
                                 .font(.system(size: 18, weight: .bold))
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                             
                             Spacer()
                             
@@ -165,16 +165,16 @@ struct MainView: View {
                                 HStack(spacing: 3) {
                                     Text("Усі")
                                         .font(.system(size: 14, weight: .medium))
-                                        .foregroundColor(.white)
+                                        .foregroundColor(.black)
                                     Image(systemName: "chevron.right")
                                         .font(.system(size: 10, weight: .semibold))
-                                        .foregroundColor(.white)
+                                        .foregroundColor(.black)
                                 }
                                 .padding(.horizontal, 10)
                                 .padding(.vertical, 6)
                                 .background(
                                     RoundedRectangle(cornerRadius: 12)
-                                        .fill(Color.white.opacity(0.15))
+                                        .fill(Color.black.opacity(0.1))
                                 )
                             }
                         }
@@ -194,7 +194,7 @@ struct MainView: View {
                     }
                     .background(
                         RoundedRectangle(cornerRadius: 20)
-                            .fill(Color(red: 0.15, green: 0.15, blue: 0.2))  // Темно-черный как карта Monobank
+                            .fill(Color.white)  // Белый цвет для карточки операций
                     )
                     .padding(.horizontal, 16)  // Отступы от краев экрана
                 }
@@ -228,7 +228,7 @@ struct ActionButton: View {
             
             Text(title)
                 .font(.system(size: 12, weight: .medium))
-                .foregroundColor(.white)
+                .foregroundColor(.black)
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
                 .frame(height: 32)
@@ -257,12 +257,12 @@ struct TransactionRow: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text(transaction.title)
                     .font(.system(size: 16, weight: .medium))
-                    .foregroundColor(.white)
+                    .foregroundColor(.black)
                     .lineLimit(1)
                 
                 Text(transaction.date.formatted(.dateTime.day().month().hour().minute()))
                     .font(.system(size: 13))
-                    .foregroundColor(.white.opacity(0.7))
+                    .foregroundColor(.black.opacity(0.7))
             }
             
             Spacer()
@@ -271,11 +271,11 @@ struct TransactionRow: View {
             VStack(alignment: .trailing, spacing: 2) {
                 Text(transaction.formattedAmount)
                     .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(transaction.amount >= 0 ? Color(red: 0.2, green: 0.7, blue: 0.3) : .white)
+                    .foregroundColor(transaction.amount >= 0 ? Color(red: 0.2, green: 0.7, blue: 0.3) : .black)
                 
                 Text(transaction.currency)
                     .font(.system(size: 12))
-                    .foregroundColor(.white.opacity(0.7))
+                    .foregroundColor(.black.opacity(0.7))
             }
         }
         .padding(.vertical, 12)
