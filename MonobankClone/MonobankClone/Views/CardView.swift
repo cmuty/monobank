@@ -51,34 +51,16 @@ struct CardView: View {
     
     var body: some View {
         ZStack {
-            // 3D Card layers for realistic thickness effect
-            ForEach(0..<6, id: \.self) { layer in
-                RoundedRectangle(cornerRadius: 16)
-                    .fill(
-                        layer == 0 ? cardGradient : 
-                        LinearGradient(
-                            gradient: Gradient(colors: [
-                                cardGradient.stops[0].color.opacity(0.8 - Double(layer) * 0.12),
-                                cardGradient.stops[1].color.opacity(0.6 - Double(layer) * 0.08)
-                            ]),
-                            startPoint: cardGradient.startPoint,
-                            endPoint: cardGradient.endPoint
-                        )
-                    )
-                    .frame(width: 320, height: 190)
-                    .offset(x: CGFloat(layer) * 0.8, y: CGFloat(layer) * 1.2)
-                    .rotation3DEffect(
-                        .degrees(disableTilt ? 0 : (card.cardType == .black || card.cardType == .white ? 60 : 0.5)),
-                        axis: (x: 1, y: 0, z: 0),
-                        perspective: 0.4
-                    )
-                    .shadow(
-                        color: Color(red: 0.08, green: 0.14, blue: 0.37).opacity(layer == 0 ? 0.4 : 0.1),
-                        radius: layer == 0 ? 8 : 2,
-                        x: 0,
-                        y: CGFloat(layer + 2)
-                    )
-            }
+            // Simple 3D Card
+            RoundedRectangle(cornerRadius: 16)
+                .fill(cardGradient)
+                .frame(width: 320, height: 190)
+                .shadow(color: Color(red: 0.08, green: 0.14, blue: 0.37).opacity(0.4), radius: 12, x: 0, y: 8)
+                .rotation3DEffect(
+                    .degrees(disableTilt ? 0 : (card.cardType == .black || card.cardType == .white ? 60 : 0.5)),
+                    axis: (x: 1, y: 0, z: 0),
+                    perspective: 0.4
+                )
             
             ZStack {
                 // monobank logo - сверху слева
