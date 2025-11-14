@@ -103,22 +103,6 @@ workflows:
           
           cd "$CM_BUILD_DIR"
           
-          # Проверяем что архив создался
-          if [ ! -d "MonobankClone.xcarchive" ]; then
-            echo "❌ Archive not found!"
-            ls -la
-            exit 1
-          fi
-          
-          echo "✅ Archive found, checking contents..."
-          ls -la MonobankClone.xcarchive/Products/Applications/
-          
-          # Проверяем что .app существует
-          if [ ! -d "MonobankClone.xcarchive/Products/Applications/MonobankClone.app" ]; then
-            echo "❌ App bundle not found!"
-            exit 1
-          fi
-          
           # Создаем IPA
           mkdir -p ipa
           mkdir -p Payload
@@ -126,66 +110,14 @@ workflows:
           # Копируем .app в Payload
           cp -r MonobankClone.xcarchive/Products/Applications/MonobankClone.app Payload/
           
-          # Проверяем что копирование прошло успешно
-          if [ ! -d "Payload/MonobankClone.app" ]; then
-            echo "❌ Failed to copy app to Payload!"
-            exit 1
-          fi
-          
-          echo "✅ App copied to Payload, creating IPA..."
-          
           # Создаем IPA
           zip -r ipa/MonobankClone.ipa Payload
           
           # Очищаем
           rm -rf Payload
           
-          # Проверяем что IPA создался
-          if [ ! -f "ipa/MonobankClone.ipa" ]; then
-            echo "❌ Failed to create IPA!"
-            exit 1
-          fi
-          
-          echo "✅ IPA created successfully:"
+          echo "✅ IPA created:"
           ls -lh ipa/MonobankClone.ipa
-          
-          # Проверяем содержимое IPA
-          echo "📋 IPA contents:"
-          unzip -l ipa/MonobankClone.ipa | head -10
-          
-      - name: Alternative IPA creation (if main fails)
-        script: |
-          set -e
-          
-          cd "$CM_BUILD_DIR"
-          
-          # Если IPA уже создан, пропускаем
-          if [ -f "ipa/MonobankClone.ipa" ]; then
-            echo "✅ IPA already exists, skipping alternative method"
-            exit 0
-          fi
-          
-          echo "🔄 Trying alternative IPA creation method..."
-          
-          # Альтернативный метод через xcodebuild
-          xcodebuild -exportArchive \
-            -archivePath MonobankClone.xcarchive \
-            -exportPath ipa \
-            -exportOptionsPlist <(cat <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-    <key>method</key>
-    <string>development</string>
-    <key>signingStyle</key>
-    <string>manual</string>
-    <key>stripSwiftSymbols</key>
-    <false/>
-</dict>
-</plist>
-EOF
-) || echo "Alternative method failed, but that's okay"
     
     artifacts:
       - ipa/*.ipa
