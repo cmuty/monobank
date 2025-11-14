@@ -11,10 +11,9 @@ struct MainView: View {
     }
     
     var body: some View {
-        ScrollView(showsIndicators: false) {
-                    VStack(spacing: 0) {
-                    // Top bar
-                    HStack {
+        VStack(spacing: 0) {
+            // Fixed Top bar
+            HStack {
                         // Profile icon
                         ZStack {
                             Circle()
@@ -67,7 +66,10 @@ struct MainView: View {
                     .padding(.horizontal, 20)
                     .padding(.top, 5)
                     .padding(.bottom, 20)
-                    
+            
+            // Scrollable content
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 0) {
                     // Отступ сверху чтобы опустить весь интерфейс
                     Spacer()
                         .frame(height: 30)
@@ -196,6 +198,7 @@ struct MainView: View {
                     )
                     .padding(.horizontal, 16)  // Отступы от краев экрана
                 }
+            }
         }
         .ignoresSafeArea(edges: .bottom)
         .sheet(isPresented: $showTransactionList) {

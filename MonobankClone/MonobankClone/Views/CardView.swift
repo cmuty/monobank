@@ -54,7 +54,7 @@ struct CardView: View {
             // Card background with 3D effect
             RoundedRectangle(cornerRadius: 16)
                 .fill(cardGradient)
-                .frame(width: 380, height: 220)
+                .frame(width: 340, height: 200)
                 .shadow(color: .black.opacity(0.3), radius: 20, x: 0, y: 10)
                 .rotation3DEffect(
                     .degrees(disableTilt ? 0 : (card.cardType == .black || card.cardType == .white ? 60 : 0.5)),  // Черная и белая карты наклонены
@@ -92,7 +92,7 @@ struct CardView: View {
                     .padding(.bottom, 20)
                     .padding(.trailing, 24)
             }
-            .frame(width: 380, height: 220)
+            .frame(width: 340, height: 200)
             .rotation3DEffect(
                 .degrees(disableTilt ? 0 : (card.cardType == .black || card.cardType == .white ? 60 : 0.5)),  // Черная и белая карты наклонены
                 axis: (x: 1, y: 0, z: 0),

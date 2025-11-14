@@ -36,11 +36,11 @@ struct BottomTabBar: View {
                         .foregroundColor(selectedTab == .market ? Color(red: 1.0, green: 0.2, blue: 0.2) : Color.white.opacity(0.7))
                     
                     Text("Маркет")
-                        .font(.system(size: 9, weight: selectedTab == .market ? .semibold : .medium))
+                        .font(.system(size: 10, weight: selectedTab == .market ? .semibold : .medium))
                         .foregroundColor(selectedTab == .market ? Color(red: 1.0, green: 0.2, blue: 0.2) : Color.white.opacity(0.8))
                 }
             }
-            .frame(width: 55, height: 60)
+            .frame(width: 60, height: 65)
             .background(
                 RoundedRectangle(cornerRadius: 30)
                     .fill(Color(red: 0.15, green: 0.15, blue: 0.2))
@@ -69,11 +69,11 @@ struct TabBarButton: View {
                     .foregroundColor(isSelected ? Color(red: 1.0, green: 0.2, blue: 0.2) : Color.white.opacity(0.7))
                 
                 Text(tab.rawValue)
-                    .font(.system(size: 9, weight: isSelected ? .semibold : .medium))
+                    .font(.system(size: 10, weight: isSelected ? .semibold : .medium))
                     .foregroundColor(isSelected ? Color(red: 1.0, green: 0.2, blue: 0.2) : Color.white.opacity(0.8))
             }
             .frame(maxWidth: .infinity)
-            .padding(.vertical, 6)
+            .padding(.vertical, 8)
         }
     }
 }
