@@ -48,18 +48,12 @@ struct MainView: View {
                                     .font(.system(size: 14, weight: .semibold))
                             }
                             .foregroundColor(.white)
-                            .padding(.horizontal, 12)
-                            .padding(.vertical, 8)
-                            .background(
-                                RoundedRectangle(cornerRadius: 20)
-                                    .fill(Color.black.opacity(0.25))
-                            )
                             
                             Text("🐱")
                                 .font(.system(size: 20))
                             
-                            Image(systemName: "chart.bar.fill")
-                                .font(.system(size: 20))
+                            Image(systemName: "message.fill")
+                                .font(.system(size: 18))
                                 .foregroundColor(.white)
                         }
                     }
@@ -227,23 +221,23 @@ struct ActionButton: View {
     let title: String
     
     var body: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 6) {
             ZStack {
                 Circle()
                     .fill(Color(red: 0.15, green: 0.15, blue: 0.2))
-                    .frame(width: 60, height: 60)
+                    .frame(width: 50, height: 50)
                 
                 Image(systemName: icon)
-                    .font(.system(size: 24))
+                    .font(.system(size: 20))
                     .foregroundColor(.white)
             }
             
             Text(title)
-                .font(.system(size: 12, weight: .medium))
+                .font(.system(size: 11, weight: .medium))
                 .foregroundColor(.black)
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
-                .frame(height: 32)
+                .frame(height: 28)
         }
         .frame(maxWidth: .infinity)
     }
