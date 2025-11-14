@@ -1,4 +1,66 @@
 workflows:
+  simulator-workflow:
+    name: Build for iOS Simulator
+    max_build_duration: 30
+    instance_type: mac_mini_m1
+    environment:
+      vars:
+        XCODE_PROJECT: "MonobankClone/MonobankClone.xcodeproj"
+        XCODE_SCHEME: "MonobankClone"
+      xcode: latest
+    scripts:
+      - name: Build with Generic Destination for Simulator
+        script: |
+          set -e
+          set -x
+          
+          cd MonobankClone
+          
+          # Очищаем предыдущие сборки
+          xcodebuild clean -project "$XCODE_PROJECT" -scheme "$XCODE_SCHEME"
+          
+          # Собираем для симулятора
+          xcodebuild build \
+            -project "$XCODE_PROJECT" \
+            -scheme "$XCODE_SCHEME" \
+            -sdk iphonesimulator \
+            -configuration Debug \
+            -destination 'platform=iOS Simulator,name=iPhone 15 Pro' \
+            IPHONEOS_DEPLOYMENT_TARGET=15.0
+            
+      - name: Find and copy .app bundle
+        script: |
+          set -e
+          
+          # Находим .app файл
+          APP_PATH=$(find ~/Library/Developer/Xcode/DerivedData -name "MonobankClone.app" -type d | head -1)
+          
+          if [ -z "$APP_PATH" ]; then
+            echo "❌ .app bundle not found!"
+            exit 1
+          fi
+          
+          echo "✅ Found .app at: $APP_PATH"
+          
+          # Копируем в артефакты
+          mkdir -p "$CM_BUILD_DIR/simulator_build"
+          cp -r "$APP_PATH" "$CM_BUILD_DIR/simulator_build/"
+          
+          echo "📱 App bundle copied for simulator use"
+          ls -la "$CM_BUILD_DIR/simulator_build/"
+    
+    artifacts:
+      - simulator_build/*.app
+      - /Users/builder/Library/Developer/Xcode/DerivedData/**/*.app
+    
+    publishing:
+      email:
+        recipients:
+          - nutipovottakvot@gmail.com
+        notify:
+          success: true
+          failure: true
+
   ios-workflow:
     name: Monobank Clone - iOS Build for Sideloadly
     max_build_duration: 60

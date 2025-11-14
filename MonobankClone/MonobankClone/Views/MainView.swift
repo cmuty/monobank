@@ -90,7 +90,7 @@ struct MainView: View {
                             .font(.system(size: 48, weight: .bold))
                             .foregroundColor(.white)
                     }
-                    .padding(.bottom, 60)
+                    .padding(.bottom, 70)
                     
                     // Card with background card
                     TabView(selection: $currentCardIndex) {
@@ -127,32 +127,22 @@ struct MainView: View {
                     .frame(height: 220)
                     .tabViewStyle(.page(indexDisplayMode: .never))
                     
-                    // Card indicators - индикаторы карт
-                    HStack(spacing: 8) {
-                        ForEach(cards.indices, id: \.self) { index in
-                            Circle()
-                                .fill(currentCardIndex == index ? Color.white : Color.white.opacity(0.3))
-                                .frame(width: 8, height: 8)
-                        }
-                    }
-                    .padding(.top, 12)
-                    
-                    // All cards button - уже как в оригинале
+                    // All cards button - тонкая и широкая
                     Button(action: {}) {
                         HStack(spacing: 6) {
                             Image(systemName: "creditcard.fill")
-                                .font(.system(size: 12))
+                                .font(.system(size: 11))
                             Text("Усі картки")
-                                .font(.system(size: 13, weight: .medium))
+                                .font(.system(size: 12, weight: .medium))
                         }
                         .foregroundColor(.white)
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 8)
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 4)
                         .background(Color.black.opacity(0.4))
-                        .cornerRadius(16)
+                        .cornerRadius(12)
                     }
-                    .padding(.top, 15)
-                    .padding(.bottom, 10)
+                    .padding(.top, 8)
+                    .padding(.bottom, 8)
                     
                     // Action buttons
                     HStack(spacing: 20) {
@@ -172,7 +162,7 @@ struct MainView: View {
                         )
                     }
                     .padding(.horizontal, 20)
-                    .padding(.bottom, 20)
+                    .padding(.bottom, 15)
                     
                     // Transactions section - опускаем ниже
                     VStack(spacing: 0) {
