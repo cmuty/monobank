@@ -72,11 +72,11 @@ struct MainView: View {
                 VStack(spacing: 0) {
                     // Отступ сверху чтобы опустить весь интерфейс
                     Spacer()
-                        .frame(height: 60)
+                        .frame(height: 40)
                     
                     // Дополнительный отступ для баланса
                     Spacer()
-                        .frame(height: 40)
+                        .frame(height: 20)
                     
                     // Balance
                     HStack(spacing: 8) {
@@ -90,20 +90,43 @@ struct MainView: View {
                             .font(.system(size: 48, weight: .bold))
                             .foregroundColor(.white)
                     }
-                    .padding(.bottom, 70)
+                    .padding(.bottom, 50)
                     
-                    // Card
-                    TabView(selection: $currentCardIndex) {
-                        ForEach(cards.indices, id: \.self) { index in
-                            CardView(card: cards[index])
-                                .tag(index)
-                                .onTapGesture {
-                                    showCardDetail = true
-                                }
+                    // Card with background card
+                    ZStack {
+                        // Background card - светло-бежевая/кремовая карточка
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(LinearGradient(
+                                gradient: Gradient(colors: [
+                                    Color(red: 0.95, green: 0.92, blue: 0.88),  // Светло-бежевый
+                                    Color(red: 0.92, green: 0.89, blue: 0.85)   // Чуть темнее бежевый
+                                ]),
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ))
+                            .frame(width: 300, height: 180)
+                            .shadow(color: .black.opacity(0.2), radius: 15, x: 0, y: 8)
+                            .offset(y: 15)
+                            .rotation3DEffect(
+                                .degrees(45),
+                                axis: (x: 1, y: 0, z: 0),
+                                perspective: 0.4
+                            )
+                        
+                        // Main card
+                        TabView(selection: $currentCardIndex) {
+                            ForEach(cards.indices, id: \.self) { index in
+                                CardView(card: cards[index])
+                                    .tag(index)
+                                    .onTapGesture {
+                                        showCardDetail = true
+                                    }
+                            }
                         }
+                        .frame(height: 210)
+                        .tabViewStyle(.page(indexDisplayMode: .never))
                     }
-                    .frame(height: 220)
-                    .tabViewStyle(.page(indexDisplayMode: .never))
+                    .frame(height: 230)
                     
                     // Card indicators - индикаторы карт
                     HStack(spacing: 8) {
