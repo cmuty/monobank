@@ -70,15 +70,11 @@ struct MainView: View {
             // Scrollable content
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
-                    // Отступ сверху чтобы опустить весь интерфейс
+                    // Отступ сверху для баланса в центре
                     Spacer()
-                        .frame(height: 20)
+                        .frame(height: 80)
                     
-                    // Дополнительный отступ для баланса
-                    Spacer()
-                        .frame(height: 10)
-                    
-                    // Balance
+                    // Balance - в центре экрана как на скриншоте
                     HStack(spacing: 8) {
                         Button(action: {}) {
                             Image(systemName: "eye.slash.fill")
@@ -90,7 +86,7 @@ struct MainView: View {
                             .font(.system(size: 48, weight: .bold))
                             .foregroundColor(.white)
                     }
-                    .padding(.bottom, 120)
+                    .padding(.bottom, 60)
                     
                     // Card with background card
                     TabView(selection: $currentCardIndex) {
@@ -141,8 +137,8 @@ struct MainView: View {
                         .background(Color.black.opacity(0.4))
                         .cornerRadius(12)
                     }
-                    .padding(.top, 2)
-                    .padding(.bottom, 2)
+                    .padding(.top, 8)
+                    .padding(.bottom, 20)
                     
                     // Action buttons
                     HStack(spacing: 20) {
@@ -162,9 +158,9 @@ struct MainView: View {
                         )
                     }
                     .padding(.horizontal, 20)
-                    .padding(.bottom, 5)
+                    .padding(.bottom, 30)
                     
-                    // Transactions section - опускаем ниже
+                    // Transactions section - поднимаем выше
                     VStack(spacing: 0) {
                         HStack {
                             Text("Операції")
