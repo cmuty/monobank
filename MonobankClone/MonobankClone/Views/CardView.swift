@@ -57,7 +57,6 @@ struct CardView: View {
                     .fill(cardGradient.opacity(layer == 0 ? 1.0 : 0.7 - Double(layer) * 0.15))
                     .frame(width: 320, height: 190)
                     .offset(x: CGFloat(layer) * 1.5, y: CGFloat(layer) * 1.5)
-                    .shadow(color: Color(red: 0.08, green: 0.14, blue: 0.37).opacity(0.3), radius: CGFloat(layer + 1) * 2, x: CGFloat(layer), y: CGFloat(layer + 1))
                     .rotation3DEffect(
                         .degrees(disableTilt ? 0 : (card.cardType == .black || card.cardType == .white ? 60 : 0.5)),
                         axis: (x: 1, y: 0, z: 0),
@@ -67,15 +66,23 @@ struct CardView: View {
             
             ZStack {
                 // monobank logo - сверху слева
-                VStack(alignment: .leading, spacing: 2) {
+                VStack(alignment: .leading, spacing: 0) {
                     Text("monobank")
-                        .font(.system(size: 16, weight: .medium))
+                        .font(.system(size: 20, weight: .medium))
                         .foregroundColor(textColor)
                         .shadow(color: Color(red: 0.08, green: 0.14, blue: 0.37).opacity(0.8), radius: 4, x: 1, y: 2)
-                    Text("Universal Bank")
-                        .font(.system(size: 8))
-                        .foregroundColor(textColor.opacity(0.6))
-                        .shadow(color: Color(red: 0.08, green: 0.14, blue: 0.37).opacity(0.6), radius: 2, x: 1, y: 1)
+                    
+                    HStack(spacing: 0) {
+                        // Invisible text to align "Universal Bank" under "ank"
+                        Text("monob")
+                            .font(.system(size: 20, weight: .medium))
+                            .opacity(0)
+                        
+                        Text("Universal Bank")
+                            .font(.system(size: 6))
+                            .foregroundColor(textColor.opacity(0.6))
+                            .shadow(color: Color(red: 0.08, green: 0.14, blue: 0.37).opacity(0.6), radius: 1, x: 0.5, y: 0.5)
+                    }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                 .padding(.top, 20)

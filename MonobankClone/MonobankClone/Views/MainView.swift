@@ -5,6 +5,7 @@ struct MainView: View {
     @State private var currentCardIndex = 0
     @State private var showTransactionList = false
     @State private var showCardDetail = false
+    @State private var isSwipingCard = false
     
     var currentCard: Card {
         cards.isEmpty ? Card.sampleCards[0] : cards[currentCardIndex]
@@ -90,7 +91,7 @@ struct MainView: View {
                             .font(.system(size: 48, weight: .bold))
                             .foregroundColor(.white)
                     }
-                    .padding(.bottom, 50)
+                    .padding(.bottom, 60)
                     
                     // Card with background card
                     TabView(selection: $currentCardIndex) {
@@ -108,7 +109,7 @@ struct MainView: View {
                                     ))
                                     .frame(width: 290, height: 170)
                                     .shadow(color: Color(red: 0.08, green: 0.14, blue: 0.37).opacity(0.4), radius: 15, x: 0, y: 8)
-                                    .offset(y: 20)  // Смещаем вниз чтобы была видна только снизу
+                                    .offset(y: 15)  // Смещаем вниз чтобы была видна только снизу, но чуть больше
                                     .rotation3DEffect(
                                         .degrees(cards[index].cardType == .black || cards[index].cardType == .white ? 60 : 0.5),
                                         axis: (x: 1, y: 0, z: 0),
@@ -117,43 +118,59 @@ struct MainView: View {
                                 
                                 // Main card с 3D эффектом
                                 CardView(card: cards[index])
-                                    .shadow(color: Color(red: 0.08, green: 0.14, blue: 0.37).opacity(0.4), radius: 20, x: 0, y: 10)
                             }
                             .tag(index)
                             .onTapGesture {
                                 showCardDetail = true
                             }
+                            .gesture(
+                                DragGesture()
+                                    .onChanged { _ in
+                                        if !isSwipingCard {
+                                            withAnimation(.easeInOut(duration: 0.2)) {
+                                                isSwipingCard = true
+                                            }
+                                        }
+                                    }
+                                    .onEnded { _ in
+                                        withAnimation(.easeInOut(duration: 0.3)) {
+                                            isSwipingCard = false
+                                        }
+                                    }
+                            )
                         }
                     }
                     .frame(height: 220)
                     .tabViewStyle(.page(indexDisplayMode: .never))
                     
-                    // Card indicators - индикаторы карт
-                    HStack(spacing: 8) {
-                        ForEach(cards.indices, id: \.self) { index in
-                            Circle()
-                                .fill(currentCardIndex == index ? Color.white : Color.white.opacity(0.3))
-                                .frame(width: 8, height: 8)
-                        }
-                    }
-                    .padding(.top, 12)
-                    
-                    // All cards button - уже как в оригинале
+                    // Combined button with card indicators
                     Button(action: {}) {
-                        HStack(spacing: 6) {
-                            Image(systemName: "creditcard.fill")
-                                .font(.system(size: 12))
-                            Text("Усі картки")
-                                .font(.system(size: 13, weight: .medium))
+                        HStack(spacing: 8) {
+                            if isSwipingCard {
+                                // Show card indicators when swiping
+                                ForEach(cards.indices, id: \.self) { index in
+                                    Circle()
+                                        .fill(currentCardIndex == index ? Color.white : Color.white.opacity(0.4))
+                                        .frame(width: 6, height: 6)
+                                }
+                            } else {
+                                // Show "Усі картки" by default
+                                Image(systemName: "creditcard.fill")
+                                    .font(.system(size: 11))
+                                Text("Усі картки")
+                                    .font(.system(size: 12, weight: .medium))
+                            }
                         }
                         .foregroundColor(.white)
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 8)
+                        .frame(minWidth: 120, minHeight: 32)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 6)
                         .background(Color.black.opacity(0.4))
-                        .cornerRadius(16)
+                        .cornerRadius(20)
                     }
-                    .padding(.top, 15)
+                    .padding(.top, 6)
                     .padding(.bottom, 20)
+                    .animation(.easeInOut(duration: 0.3), value: isSwipingCard)
                     
                     // Action buttons
                     HStack(spacing: 20) {
