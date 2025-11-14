@@ -54,7 +54,7 @@ struct CardView: View {
             // Card background with 3D effect
             RoundedRectangle(cornerRadius: 16)
                 .fill(cardGradient)
-                .frame(width: 340, height: 200)
+                .frame(width: 380, height: 220)
                 .shadow(color: .black.opacity(0.3), radius: 20, x: 0, y: 10)
                 .rotation3DEffect(
                     .degrees(disableTilt ? 0 : (card.cardType == .black || card.cardType == .white ? 60 : 0.5)),  // Черная и белая карты наклонены
@@ -78,8 +78,9 @@ struct CardView: View {
                 
                 // Card number - по центру, крупнее
                 Text(card.maskedNumber)
-                    .font(.system(size: 24, weight: .medium, design: .monospaced))
-                    .foregroundColor(textColor.opacity(0.8))
+                    .font(.system(size: 28, weight: .light, design: .default))
+                    .kerning(2.0)
+                    .foregroundColor(textColor.opacity(0.9))
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                 
                 // VISA - снизу справа
@@ -91,7 +92,7 @@ struct CardView: View {
                     .padding(.bottom, 20)
                     .padding(.trailing, 24)
             }
-            .frame(width: 340, height: 200)
+            .frame(width: 380, height: 220)
             .rotation3DEffect(
                 .degrees(disableTilt ? 0 : (card.cardType == .black || card.cardType == .white ? 60 : 0.5)),  // Черная и белая карты наклонены
                 axis: (x: 1, y: 0, z: 0),
