@@ -5,7 +5,7 @@ workflows:
     instance_type: mac_mini_m1
     environment:
       vars:
-        XCODE_PROJECT: "MonobankClone/MonobankClone.xcodeproj"
+        XCODE_PROJECT: "MonobankClone.xcodeproj"
         XCODE_SCHEME: "MonobankClone"
       xcode: latest
     scripts:
@@ -67,7 +67,7 @@ workflows:
     instance_type: mac_mini_m1
     environment:
       vars:
-        XCODE_PROJECT: "MonobankClone/MonobankClone.xcodeproj"
+        XCODE_PROJECT: "MonobankClone.xcodeproj"
         XCODE_SCHEME: "MonobankClone"
         BUNDLE_ID: "com.nutipov.monobankclone"
       xcode: latest
