@@ -5,6 +5,8 @@ struct MainView: View {
     @State private var currentCardIndex = 0
     @State private var showTransactionList = false
     @State private var showCardDetail = false
+    @State private var showTransactionDetail = false
+    @State private var selectedTransaction: Transaction?
     
     var currentCard: Card {
         cards.isEmpty ? Card.sampleCards[0] : cards[currentCardIndex]
@@ -14,28 +16,22 @@ struct MainView: View {
         VStack(spacing: 0) {
             // Fixed Top bar
             HStack {
-                        // Profile icon
-                        ZStack {
-                            Circle()
-                                .fill(Color.black.opacity(0.3))
-                                .frame(width: 44, height: 44)
+                        // Profile icon и сообщения рядом
+                        HStack(spacing: 12) {
+                            ZStack {
+                                Circle()
+                                    .fill(Color.black.opacity(0.3))
+                                    .frame(width: 44, height: 44)
+                                
+                                Text("БЗ")
+                                    .font(.system(size: 16, weight: .semibold))
+                                    .foregroundColor(.white)
+                            }
                             
-                            Text("БЗ")
-                                .font(.system(size: 16, weight: .semibold))
+                            Image(systemName: "message.fill")
+                                .font(.system(size: 18))
                                 .foregroundColor(.white)
                         }
-                        .overlay(
-                            Circle()
-                                .fill(Color.red)
-                                .frame(width: 12, height: 12)
-                                .overlay(
-                                    Text("1")
-                                        .font(.system(size: 8, weight: .bold))
-                                        .foregroundColor(.white)
-                                )
-                                .offset(x: 15, y: -15),
-                            alignment: .topTrailing
-                        )
                         
                         Spacer()
                         
@@ -52,8 +48,8 @@ struct MainView: View {
                             Text("🐱")
                                 .font(.system(size: 20))
                             
-                            Image(systemName: "message.fill")
-                                .font(.system(size: 18))
+                            Image(systemName: "chart.bar.fill")
+                                .font(.system(size: 20))
                                 .foregroundColor(.white)
                         }
                     }
@@ -191,6 +187,10 @@ struct MainView: View {
                         VStack(spacing: 8) {
                             ForEach(currentCard.transactions.prefix(3)) { transaction in
                                 TransactionRow(transaction: transaction)
+                                    .onTapGesture {
+                                        selectedTransaction = transaction
+                                        showTransactionDetail = true
+                                    }
                             }
                         }
                         .padding(.horizontal, 20)
@@ -212,6 +212,11 @@ struct MainView: View {
         }
         .sheet(isPresented: $showCardDetail) {
             CardDetailView(card: currentCard)
+        }
+        .sheet(isPresented: $showTransactionDetail) {
+            if let transaction = selectedTransaction {
+                TransactionDetailView(transaction: transaction)
+            }
         }
     }
 }
@@ -259,17 +264,11 @@ struct TransactionRow: View {
                     .foregroundColor(transaction.iconColor)
             }
             
-            // Content
-            VStack(alignment: .leading, spacing: 2) {
-                Text(transaction.title)
-                    .font(.system(size: 16, weight: .medium))
-                    .foregroundColor(.black)
-                    .lineLimit(1)
-                
-                Text(transaction.date.formatted(.dateTime.day().month().hour().minute()))
-                    .font(.system(size: 13))
-                    .foregroundColor(.black.opacity(0.7))
-            }
+            // Content - только название без даты
+            Text(transaction.title)
+                .font(.system(size: 16, weight: .medium))
+                .foregroundColor(.black)
+                .lineLimit(1)
             
             Spacer()
             
