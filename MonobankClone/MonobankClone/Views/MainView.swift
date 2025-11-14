@@ -215,7 +215,10 @@ struct MainView: View {
         }
         .sheet(isPresented: $showTransactionDetail) {
             if let transaction = selectedTransaction {
-                TransactionDetailView(transaction: transaction)
+                // TODO: Add TransactionDetailView to Xcode project
+                Text("Transaction Detail")
+                    .font(.title)
+                    .padding()
             }
         }
     }
