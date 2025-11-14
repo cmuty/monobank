@@ -51,16 +51,32 @@ struct CardView: View {
     
     var body: some View {
         ZStack {
-            // 3D Card layers for thickness effect
-            ForEach(0..<4, id: \.self) { layer in
+            // 3D Card layers for realistic thickness effect
+            ForEach(0..<6, id: \.self) { layer in
                 RoundedRectangle(cornerRadius: 16)
-                    .fill(cardGradient.opacity(layer == 0 ? 1.0 : 0.7 - Double(layer) * 0.15))
+                    .fill(
+                        layer == 0 ? cardGradient : 
+                        LinearGradient(
+                            gradient: Gradient(colors: [
+                                cardGradient.stops[0].color.opacity(0.8 - Double(layer) * 0.12),
+                                cardGradient.stops[1].color.opacity(0.6 - Double(layer) * 0.08)
+                            ]),
+                            startPoint: cardGradient.startPoint,
+                            endPoint: cardGradient.endPoint
+                        )
+                    )
                     .frame(width: 320, height: 190)
-                    .offset(x: CGFloat(layer) * 1.5, y: CGFloat(layer) * 1.5)
+                    .offset(x: CGFloat(layer) * 0.8, y: CGFloat(layer) * 1.2)
                     .rotation3DEffect(
                         .degrees(disableTilt ? 0 : (card.cardType == .black || card.cardType == .white ? 60 : 0.5)),
                         axis: (x: 1, y: 0, z: 0),
                         perspective: 0.4
+                    )
+                    .shadow(
+                        color: Color(red: 0.08, green: 0.14, blue: 0.37).opacity(layer == 0 ? 0.4 : 0.1),
+                        radius: layer == 0 ? 8 : 2,
+                        x: 0,
+                        y: CGFloat(layer + 2)
                     )
             }
             
@@ -82,7 +98,6 @@ struct CardView: View {
                             .font(.system(size: 6))
                             .foregroundColor(textColor.opacity(0.6))
                             .shadow(color: Color(red: 0.08, green: 0.14, blue: 0.37).opacity(0.6), radius: 1, x: 0.5, y: 0.5)
-                            .offset(y: -2)
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
