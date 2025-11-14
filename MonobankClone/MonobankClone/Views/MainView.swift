@@ -122,6 +122,7 @@ struct MainView: View {
                     }
                     .frame(height: 220)
                     .tabViewStyle(.page(indexDisplayMode: .never))
+                    .offset(y: -20)
                     
                     // All cards button - тонкая и широкая
                     Button(action: {}) {
@@ -139,6 +140,7 @@ struct MainView: View {
                     }
                     .padding(.top, 4)
                     .padding(.bottom, 15)
+                    .offset(y: -20)
                     
                     // Action buttons
                     HStack(spacing: 20) {
@@ -159,6 +161,7 @@ struct MainView: View {
                     }
                     .padding(.horizontal, 20)
                     .padding(.bottom, 20)
+                    .offset(y: -20)
                     
                     // Transactions section - поднимаем выше
                     VStack(spacing: 0) {
@@ -205,6 +208,7 @@ struct MainView: View {
                             .fill(Color.white)  // Белый цвет для карточки операций
                     )
                     .padding(.horizontal, 16)  // Отступы от краев экрана
+                    .offset(y: -20)
                 }
             }
         }
