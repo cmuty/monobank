@@ -51,16 +51,19 @@ struct CardView: View {
     
     var body: some View {
         ZStack {
-            // Card background with 3D effect
-            RoundedRectangle(cornerRadius: 16)
-                .fill(cardGradient)
-                .frame(width: 320, height: 190)
-                .shadow(color: .black.opacity(0.3), radius: 20, x: 0, y: 10)
-                .rotation3DEffect(
-                    .degrees(disableTilt ? 0 : (card.cardType == .black || card.cardType == .white ? 60 : 0.5)),  // Черная и белая карты наклонены
-                    axis: (x: 1, y: 0, z: 0),
-                    perspective: 0.4
-                )
+            // 3D Card layers for thickness effect
+            ForEach(0..<4, id: \.self) { layer in
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(cardGradient.opacity(layer == 0 ? 1.0 : 0.7 - Double(layer) * 0.15))
+                    .frame(width: 320, height: 190)
+                    .offset(x: CGFloat(layer) * 1.5, y: CGFloat(layer) * 1.5)
+                    .shadow(color: Color(red: 0.08, green: 0.14, blue: 0.37).opacity(0.3), radius: CGFloat(layer + 1) * 2, x: CGFloat(layer), y: CGFloat(layer + 1))
+                    .rotation3DEffect(
+                        .degrees(disableTilt ? 0 : (card.cardType == .black || card.cardType == .white ? 60 : 0.5)),
+                        axis: (x: 1, y: 0, z: 0),
+                        perspective: 0.4
+                    )
+            }
             
             ZStack {
                 // monobank logo - сверху слева
@@ -68,11 +71,11 @@ struct CardView: View {
                     Text("monobank")
                         .font(.system(size: 16, weight: .medium))
                         .foregroundColor(textColor)
-                        .shadow(color: Color(red: 0.08, green: 0.14, blue: 0.37).opacity(0.6), radius: 2, x: 0, y: 1)
+                        .shadow(color: Color(red: 0.08, green: 0.14, blue: 0.37).opacity(0.8), radius: 4, x: 1, y: 2)
                     Text("Universal Bank")
                         .font(.system(size: 8))
                         .foregroundColor(textColor.opacity(0.6))
-                        .shadow(color: Color(red: 0.08, green: 0.14, blue: 0.37).opacity(0.4), radius: 1, x: 0, y: 0.5)
+                        .shadow(color: Color(red: 0.08, green: 0.14, blue: 0.37).opacity(0.6), radius: 2, x: 1, y: 1)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                 .padding(.top, 20)
@@ -84,7 +87,7 @@ struct CardView: View {
                     .fontWeight(.light)
                     .kerning(2.0)
                     .foregroundColor(textColor.opacity(0.9))
-                    .shadow(color: Color(red: 0.08, green: 0.14, blue: 0.37).opacity(0.7), radius: 3, x: 0, y: 2)
+                    .shadow(color: Color(red: 0.08, green: 0.14, blue: 0.37).opacity(0.9), radius: 6, x: 2, y: 3)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                 
                 // VISA - снизу справа
@@ -92,7 +95,7 @@ struct CardView: View {
                     .font(.system(size: 20, weight: .bold))
                     .italic()
                     .foregroundColor(textColor)
-                    .shadow(color: Color(red: 0.08, green: 0.14, blue: 0.37).opacity(0.6), radius: 2, x: 0, y: 1)
+                    .shadow(color: Color(red: 0.08, green: 0.14, blue: 0.37).opacity(0.8), radius: 4, x: 1, y: 2)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
                     .padding(.bottom, 20)
                     .padding(.trailing, 24)

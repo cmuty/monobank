@@ -93,40 +93,40 @@ struct MainView: View {
                     .padding(.bottom, 50)
                     
                     // Card with background card
-                    ZStack {
-                        // Background card - светло-бежевая/кремовая карточка
-                        RoundedRectangle(cornerRadius: 16)
-                            .fill(LinearGradient(
-                                gradient: Gradient(colors: [
-                                    Color(red: 0.95, green: 0.92, blue: 0.88),  // Светло-бежевый
-                                    Color(red: 0.92, green: 0.89, blue: 0.85)   // Чуть темнее бежевый
-                                ]),
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            ))
-                            .frame(width: 300, height: 180)
-                            .shadow(color: .black.opacity(0.2), radius: 15, x: 0, y: 8)
-                            .offset(y: 15)
-                            .rotation3DEffect(
-                                .degrees(45),
-                                axis: (x: 1, y: 0, z: 0),
-                                perspective: 0.4
-                            )
-                        
-                        // Main card
-                        TabView(selection: $currentCardIndex) {
-                            ForEach(cards.indices, id: \.self) { index in
+                    TabView(selection: $currentCardIndex) {
+                        ForEach(cards.indices, id: \.self) { index in
+                            ZStack {
+                                // Background card - под каждой картой отдельно
+                                RoundedRectangle(cornerRadius: 16)
+                                    .fill(LinearGradient(
+                                        gradient: Gradient(colors: [
+                                            Color(red: 0.92, green: 0.89, blue: 0.85),  // Светлый бежевый как на скриншоте
+                                            Color(red: 0.88, green: 0.85, blue: 0.81)   // Чуть темнее
+                                        ]),
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
+                                    ))
+                                    .frame(width: 290, height: 170)
+                                    .shadow(color: Color(red: 0.08, green: 0.14, blue: 0.37).opacity(0.4), radius: 15, x: 0, y: 8)
+                                    .offset(y: 20)  // Смещаем вниз чтобы была видна только снизу
+                                    .rotation3DEffect(
+                                        .degrees(25),
+                                        axis: (x: 1, y: 0, z: 0),
+                                        perspective: 0.4
+                                    )
+                                
+                                // Main card с 3D эффектом
                                 CardView(card: cards[index])
-                                    .tag(index)
-                                    .onTapGesture {
-                                        showCardDetail = true
-                                    }
+                                    .shadow(color: Color(red: 0.08, green: 0.14, blue: 0.37).opacity(0.4), radius: 20, x: 0, y: 10)
+                            }
+                            .tag(index)
+                            .onTapGesture {
+                                showCardDetail = true
                             }
                         }
-                        .frame(height: 210)
-                        .tabViewStyle(.page(indexDisplayMode: .never))
                     }
-                    .frame(height: 230)
+                    .frame(height: 220)
+                    .tabViewStyle(.page(indexDisplayMode: .never))
                     
                     // Card indicators - индикаторы карт
                     HStack(spacing: 8) {
