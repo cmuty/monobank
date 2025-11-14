@@ -72,11 +72,11 @@ struct MainView: View {
                 VStack(spacing: 0) {
                     // Отступ сверху чтобы опустить весь интерфейс
                     Spacer()
-                        .frame(height: 40)
+                        .frame(height: 30)
                     
                     // Дополнительный отступ для баланса
                     Spacer()
-                        .frame(height: 20)
+                        .frame(height: 15)
                     
                     // Balance
                     HStack(spacing: 8) {
@@ -90,7 +90,7 @@ struct MainView: View {
                             .font(.system(size: 48, weight: .bold))
                             .foregroundColor(.white)
                     }
-                    .padding(.bottom, 70)
+                    .padding(.bottom, 80)
                     
                     // Card with background card
                     TabView(selection: $currentCardIndex) {
@@ -141,8 +141,8 @@ struct MainView: View {
                         .background(Color.black.opacity(0.4))
                         .cornerRadius(12)
                     }
-                    .padding(.top, 8)
-                    .padding(.bottom, 8)
+                    .padding(.top, 4)
+                    .padding(.bottom, 4)
                     
                     // Action buttons
                     HStack(spacing: 20) {
@@ -162,7 +162,7 @@ struct MainView: View {
                         )
                     }
                     .padding(.horizontal, 20)
-                    .padding(.bottom, 15)
+                    .padding(.bottom, 10)
                     
                     // Transactions section - опускаем ниже
                     VStack(spacing: 0) {
