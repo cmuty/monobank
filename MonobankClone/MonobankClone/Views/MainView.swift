@@ -5,7 +5,6 @@ struct MainView: View {
     @State private var currentCardIndex = 0
     @State private var showTransactionList = false
     @State private var showCardDetail = false
-    @State private var isSwipingCard = false
     
     var currentCard: Card {
         cards.isEmpty ? Card.sampleCards[0] : cards[currentCardIndex]
@@ -123,54 +122,37 @@ struct MainView: View {
                             .onTapGesture {
                                 showCardDetail = true
                             }
-                            .gesture(
-                                DragGesture()
-                                    .onChanged { _ in
-                                        if !isSwipingCard {
-                                            withAnimation(.easeInOut(duration: 0.2)) {
-                                                isSwipingCard = true
-                                            }
-                                        }
-                                    }
-                                    .onEnded { _ in
-                                        withAnimation(.easeInOut(duration: 0.3)) {
-                                            isSwipingCard = false
-                                        }
-                                    }
-                            )
                         }
                     }
                     .frame(height: 220)
                     .tabViewStyle(.page(indexDisplayMode: .never))
                     
-                    // Combined button with card indicators
+                    // Card indicators - индикаторы карт
+                    HStack(spacing: 8) {
+                        ForEach(cards.indices, id: \.self) { index in
+                            Circle()
+                                .fill(currentCardIndex == index ? Color.white : Color.white.opacity(0.3))
+                                .frame(width: 8, height: 8)
+                        }
+                    }
+                    .padding(.top, 12)
+                    
+                    // All cards button - уже как в оригинале
                     Button(action: {}) {
-                        HStack(spacing: 8) {
-                            if isSwipingCard {
-                                // Show card indicators when swiping
-                                ForEach(cards.indices, id: \.self) { index in
-                                    Circle()
-                                        .fill(currentCardIndex == index ? Color.white : Color.white.opacity(0.4))
-                                        .frame(width: 6, height: 6)
-                                }
-                            } else {
-                                // Show "Усі картки" by default
-                                Image(systemName: "creditcard.fill")
-                                    .font(.system(size: 11))
-                                Text("Усі картки")
-                                    .font(.system(size: 12, weight: .medium))
-                            }
+                        HStack(spacing: 6) {
+                            Image(systemName: "creditcard.fill")
+                                .font(.system(size: 12))
+                            Text("Усі картки")
+                                .font(.system(size: 13, weight: .medium))
                         }
                         .foregroundColor(.white)
-                        .frame(minWidth: 120, minHeight: 32)
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 6)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
                         .background(Color.black.opacity(0.4))
-                        .cornerRadius(20)
+                        .cornerRadius(16)
                     }
-                    .padding(.top, 6)
-                    .padding(.bottom, 20)
-                    .animation(.easeInOut(duration: 0.3), value: isSwipingCard)
+                    .padding(.top, 15)
+                    .padding(.bottom, 10)
                     
                     // Action buttons
                     HStack(spacing: 20) {
@@ -190,7 +172,7 @@ struct MainView: View {
                         )
                     }
                     .padding(.horizontal, 20)
-                    .padding(.bottom, 40)
+                    .padding(.bottom, 20)
                     
                     // Transactions section - опускаем ниже
                     VStack(spacing: 0) {

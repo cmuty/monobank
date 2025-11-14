@@ -66,7 +66,7 @@ struct CardView: View {
             
             ZStack {
                 // monobank logo - сверху слева
-                VStack(alignment: .leading, spacing: 0) {
+                VStack(alignment: .leading, spacing: 1) {
                     Text("monobank")
                         .font(.system(size: 20, weight: .medium))
                         .foregroundColor(textColor)
@@ -82,6 +82,7 @@ struct CardView: View {
                             .font(.system(size: 6))
                             .foregroundColor(textColor.opacity(0.6))
                             .shadow(color: Color(red: 0.08, green: 0.14, blue: 0.37).opacity(0.6), radius: 1, x: 0.5, y: 0.5)
+                            .offset(y: -2)
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
