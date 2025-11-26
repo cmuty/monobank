@@ -117,7 +117,7 @@ extension Card {
             id: UUID().uuidString,
             cardNumber: "4441 **** **** 5382",
             cardholderName: "BOHDAN ZARVA",
-            balance: 79654.33,
+            balance: 79349.38,
             currency: "₴",
             cardType: .black,
             isBlocked: false,
@@ -126,7 +126,7 @@ extension Card {
                 Transaction(
                     id: UUID().uuidString,
                     title: "З Білої картки",
-                    amount: 1.00,
+                    amount: +1200.00,
                     currency: "₴",
                     date: Date(),
                     category: .transfer,
@@ -149,7 +149,7 @@ extension Card {
             id: UUID().uuidString,
             cardNumber: "4874 **** **** 3497",
             cardholderName: "BOHDAN ZARVA",
-            balance: 18492.03,
+            balance: 17236.04,
             currency: "₴",
             cardType: .white,
             isBlocked: false,
@@ -168,7 +168,7 @@ extension Card {
                 Transaction(
                     id: UUID().uuidString,
                     title: "Telegram",
-                    amount: -83.99,
+                    amount: -879.99,
                     currency: "₴",
                     date: Date(),
                     category: .payment,
@@ -205,7 +205,7 @@ extension Transaction {
         Transaction(
             id: UUID().uuidString,
             title: "Telegram",
-            amount: -83.99,
+            amount: -879.99,
             currency: "₴",
             date: Date(),
             category: .payment,
@@ -215,7 +215,7 @@ extension Transaction {
         Transaction(
             id: UUID().uuidString,
             title: "З Чорної картки",
-            amount: 34.00,
+            amount: 1200.00,
             currency: "₴",
             date: Date(),
             category: .transfer,
